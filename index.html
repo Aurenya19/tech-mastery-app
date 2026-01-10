@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Mastery Pro</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: #0a0e1a; color: #e5e7eb; }
+        
+        .login { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #10b981, #8b5cf6); }
+        .login-box { background: white; padding: 3rem; border-radius: 20px; text-align: center; max-width: 400px; width: 90%; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+        .login-box i { font-size: 4rem; color: #10b981; margin-bottom: 1rem; }
+        .login-box h1 { font-size: 2rem; color: #1a202c; margin-bottom: 0.5rem; }
+        .login-box p { color: #666; margin-bottom: 2rem; }
+        
+        input { width: 100%; padding: 1rem; border: 2px solid #ddd; border-radius: 10px; font-size: 1rem; margin: 1rem 0; }
+        input:focus { outline: none; border-color: #10b981; }
+        
+        button { padding: 1rem 2rem; border: none; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.3s; }
+        .btn-primary { background: #10b981; color: white; width: 100%; margin-top: 1rem; }
+        .btn-primary:hover { background: #059669; transform: translateY(-2px); }
+        .btn-danger { background: #ef4444; color: white; }
+        
+        .app { display: grid; grid-template-columns: 250px 1fr; grid-template-rows: 70px 1fr; min-height: 100vh; }
+        .navbar { grid-column: 1 / -1; background: #151b2e; border-bottom: 2px solid #1f2937; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; }
+        .nav-brand { font-size: 1.5rem; font-weight: 800; color: #10b981; }
+        
+        .sidebar { background: #151b2e; border-right: 2px solid #1f2937; padding: 2rem 1rem; }
+        .sidebar ul { list-style: none; }
+        .sidebar li { padding: 1rem; margin-bottom: 0.5rem; border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 1rem; transition: all 0.3s; }
+        .sidebar li:hover { background: #1e2538; transform: translateX(5px); }
+        .sidebar li.active { background: #10b981; }
+        
+        .content { padding: 2rem; overflow-y: auto; max-height: calc(100vh - 70px); }
+        .card { background: #151b2e; border-radius: 15px; padding: 2rem; margin-bottom: 2rem; border: 2px solid #1f2937; transition: all 0.3s; }
+        .card:hover { transform: translateY(-4px); border-color: #10b981; }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .stat-card { background: #151b2e; border-radius: 15px; padding: 2rem; border: 2px solid #1f2937; }
+        .stat-card h3 { color: #9ca3af; font-size: 0.9rem; margin-bottom: 0.5rem; text-transform: uppercase; }
+        .stat-card .value { font-size: 3rem; font-weight: 900; color: #10b981; }
+        
+        .mission-card { background: #151b2e; border-radius: 15px; padding: 2rem; margin-bottom: 1.5rem; border-left: 4px solid #10b981; transition: all 0.3s; }
+        .mission-card:hover { transform: translateX(10px); }
+        
+        .hackathon-card { background: #151b2e; border-radius: 15px; padding: 2rem; border: 2px solid #1f2937; }
+        .prize-tag { display: inline-block; padding: 0.75rem 1.5rem; background: #fbbf24; color: #0a0e1a; border-radius: 10px; font-size: 1.5rem; font-weight: 800; margin: 1rem 0; }
+        
+        .music-player { background: #151b2e; border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; border: 2px solid #1f2937; display: flex; align-items: center; gap: 1.5rem; transition: all 0.3s; }
+        .music-player:hover { background: #1e2538; transform: translateX(8px); }
+        .play-btn { width: 50px; height: 50px; border-radius: 50%; background: #10b981; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; }
+        .play-btn:hover { background: #059669; transform: scale(1.1); }
+        
+        .badge { display: inline-block; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 700; margin: 0.25rem; }
+        .badge-success { background: #10b981; color: white; }
+        .badge-warning { background: #fbbf24; color: #0a0e1a; }
+        .badge-purple { background: #8b5cf6; color: white; }
+        
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; align-items: center; justify-content: center; }
+        .modal.show { display: flex; }
+        .modal-content { background: #151b2e; border-radius: 20px; padding: 2rem; max-width: 800px; width: 95%; max-height: 90vh; overflow-y: auto; border: 2px solid #1f2937; }
+        
+        .milestone { background: #0a0e1a; padding: 1.5rem; border-radius: 10px; margin: 1rem 0; border-left: 4px solid #10b981; display: flex; justify-content: space-between; align-items: center; }
+        
+        h1 { font-size: 2.5rem; margin-bottom: 1rem; color: #10b981; }
+        h2 { font-size: 2rem; margin-bottom: 1rem; }
+        h3 { font-size: 1.5rem; margin-bottom: 0.75rem; }
+        h4 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+        p { color: #9ca3af; margin-bottom: 1rem; }
+        
+        @media (max-width: 768px) { .app { grid-template-columns: 1fr; } .sidebar { display: none; } }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+    <div id="modal" class="modal"><div class="modal-content" id="modalContent"></div></div>
+    
+    <script>
+        let user = JSON.parse(localStorage.getItem('techUser')) || null;
+        let progress = JSON.parse(localStorage.getItem('techProgress')) || { points: 0, challenges: 0, missions: [], hackathons: [], milestones: [] };
+        
+        const missions = [
+            { id: 1, title: 'Full Stack Developer', desc: 'Master frontend and backend', duration: '90 days', reward: 500, milestones: [
+                { id: 1, title: 'HTML/CSS Fundamentals', points: 50 },
+                { id: 2, title: 'JavaScript Projects', points: 100 },
+                { id: 3, title: 'React Framework', points: 100 },
+                { id: 4, title: 'Node.js & Express', points: 100 },
+                { id: 5, title: 'Full Stack App', points: 150 }
+            ]},
+            { id: 2, title: 'AI/ML Engineer', desc: 'Learn machine learning and AI', duration: '120 days', reward: 750, milestones: [
+                { id: 1, title: 'Python Mastery', points: 75 },
+                { id: 2, title: 'Data Analysis', points: 100 },
+                { id: 3, title: 'ML Algorithms', points: 150 },
+                { id: 4, title: 'Deep Learning', points: 200 },
+                { id: 5, title: 'Deploy AI Model', points: 225 }
+            ]},
+            { id: 3, title: 'Mobile Developer', desc: 'Build iOS and Android apps', duration: '75 days', reward: 450, milestones: [
+                { id: 1, title: 'React Native Basics', points: 60 },
+                { id: 2, title: 'UI/UX Design', points: 80 },
+                { id: 3, title: 'API Integration', points: 100 },
+                { id: 4, title: 'State Management', points: 110 },
+                { id: 5, title: 'Publish to Store', points: 100 }
+            ]}
+        ];
+        
+        const hackathons = [
+            { id: 1, title: 'AI Innovation Challenge', desc: 'Build AI solutions', prize: '$10,000', participants: 2847, categories: ['ML', 'Computer Vision', 'NLP'] },
+            { id: 2, title: 'Web3 DeFi Hackathon', desc: 'Create DeFi apps', prize: '$15,000', participants: 1923, categories: ['Smart Contracts', 'DeFi', 'NFTs'] },
+            { id: 3, title: 'Mobile App Sprint', desc: 'Build mobile apps', prize: '$8,000', participants: 3156, categories: ['Productivity', 'Health', 'Education'] }
+        ];
+        
+        const playlist = [
+            { title: 'Code Monkey', artist: 'Jonathan Coulton', duration: '3:02' },
+            { title: 'Technologic', artist: 'Daft Punk', duration: '4:44' },
+            { title: 'Computer Love', artist: 'Kraftwerk', duration: '7:15' },
+            { title: 'Digital Love', artist: 'Daft Punk', duration: '4:58' },
+            { title: 'Mr. Roboto', artist: 'Styx', duration: '5:28' },
+            { title: 'Harder Better Faster', artist: 'Daft Punk', duration: '3:45' },
+            { title: 'The Algorithm', artist: 'Muse', duration: '4:05' },
+            { title: 'Binary', artist: 'Assemblage 23', duration: '5:12' },
+            { title: 'Ctrl+Alt+Delete', artist: 'Freezepop', duration: '3:18' },
+            { title: 'Nerd Alert', artist: 'The Aquabats', duration: '2:47' },
+            { title: 'Geek in the Pink', artist: 'Jason Mraz', duration: '3:52' },
+            { title: 'White and Nerdy', artist: 'Weird Al', duration: '2:50' },
+            { title: 'She Blinded Me with Science', artist: 'Thomas Dolby', duration: '5:12' },
+            { title: 'Robot Rock', artist: 'Daft Punk', duration: '4:47' },
+            { title: 'Electric Feel', artist: 'MGMT', duration: '3:49' },
+            { title: 'Intergalactic', artist: 'Beastie Boys', duration: '3:51' },
+            { title: 'Radioactive', artist: 'Imagine Dragons', duration: '3:06' },
+            { title: 'Starlight', artist: 'Muse', duration: '4:00' },
+            { title: 'Uprising', artist: 'Muse', duration: '5:03' },
+            { title: 'Supermassive Black Hole', artist: 'Muse', duration: '3:29' }
+        ];
+        
+        function init() {
+            if (user) showApp(); else showLogin();
+        }
+        
+        function showLogin() {
+            document.getElementById('app').innerHTML = `
+                <div class="login">
+                    <div class="login-box">
+                        <i class="fas fa-brain"></i>
+                        <h1>Tech Mastery Pro</h1>
+                        <p>Your Complete Learning Platform</p>
+                        <input type="text" id="nameInput" placeholder="Enter your name">
+                        <button class="btn-primary" onclick="login()"><i class="fas fa-rocket"></i> Start Journey</button>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function login() {
+            const name = document.getElementById('nameInput').value.trim();
+            if (name) {
+                user = { name };
+                localStorage.setItem('techUser', JSON.stringify(user));
+                showApp();
+            } else alert('Please enter your name!');
+        }
+        
+        function showApp() {
+            document.getElementById('app').innerHTML = `
+                <div class="app">
+                    <nav class="navbar">
+                        <div class="nav-brand"><i class="fas fa-brain"></i> Tech Mastery Pro</div>
+                        <div style="display: flex; gap: 1rem; align-items: center;">
+                            <span style="font-weight: 600;">${user.name}</span>
+                            <button onclick="logout()" class="btn-danger" style="width: auto; padding: 0.5rem 1rem;">Logout</button>
+                        </div>
+                    </nav>
+                    <aside class="sidebar">
+                        <ul>
+                            <li class="active" onclick="show('dash')"><i class="fas fa-home"></i> Dashboard</li>
+                            <li onclick="show('missions')"><i class="fas fa-rocket"></i> Missions</li>
+                            <li onclick="show('hackathons')"><i class="fas fa-trophy"></i> Hackathons</li>
+                            <li onclick="show('playlist')"><i class="fas fa-music"></i> Playlist</li>
+                            <li onclick="show('cert')"><i class="fas fa-certificate"></i> Certificate</li>
+                        </ul>
+                    </aside>
+                    <main class="content" id="content">${getDash()}</main>
+                </div>
+            `;
+        }
+        
+        function logout() {
+            if (confirm('Logout? Progress is saved.')) { user = null; location.reload(); }
+        }
+        
+        function show(s) {
+            document.querySelectorAll('.sidebar li').forEach(li => li.classList.remove('active'));
+            event.target.closest('li').classList.add('active');
+            const c = document.getElementById('content');
+            if (s === 'dash') c.innerHTML = getDash();
+            else if (s === 'missions') c.innerHTML = getMissions();
+            else if (s === 'hackathons') c.innerHTML = getHacks();
+            else if (s === 'playlist') c.innerHTML = getPlay();
+            else if (s === 'cert') c.innerHTML = getCert();
+        }
+        
+        function getDash() {
+            return `
+                <h1>Welcome, ${user.name}! 🚀</h1>
+                <p style="font-size: 1.2rem;">Your tech learning journey</p>
+                <div class="grid" style="margin-top: 2rem;">
+                    <div class="stat-card"><h3>Points</h3><div class="value">${progress.points}</div></div>
+                    <div class="stat-card"><h3>Challenges</h3><div class="value">${progress.challenges}</div></div>
+                    <div class="stat-card"><h3>Missions</h3><div class="value">${progress.missions.length}/3</div></div>
+                </div>
+                <div class="card" style="margin-top: 2rem;">
+                    <h2>Quick Actions</h2>
+                    <div class="grid" style="margin-top: 1.5rem;">
+                        <button class="btn-primary" onclick="show('missions')"><i class="fas fa-rocket"></i> Start Mission</button>
+                        <button class="btn-primary" onclick="show('hackathons')" style="background: #8b5cf6;"><i class="fas fa-trophy"></i> Join Hackathon</button>
+                        <button class="btn-primary" onclick="show('playlist')" style="background: #fbbf24; color: #0a0e1a;"><i class="fas fa-music"></i> Play Music</button>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function getMissions() {
+            return `
+                <h1>Missions 🚀</h1>
+                <p style="font-size: 1.2rem;">Complete learning paths with rewards</p>
+                ${missions.map(m => `
+                    <div class="mission-card">
+                        <h2>${m.title}</h2>
+                        <p>${m.desc}</p>
+                        <div style="margin: 1rem 0;">
+                            <span class="badge badge-success">${m.duration}</span>
+                            <span class="badge badge-warning">${m.reward} points</span>
+                            <span class="badge badge-purple">${m.milestones.length} milestones</span>
+                        </div>
+                        <button class="btn-primary" onclick="viewMission(${m.id})" style="width: auto;"><i class="fas fa-eye"></i> View Details</button>
+                    </div>
+                `).join('')}
+            `;
+        }
+        
+        function viewMission(id) {
+            const m = missions.find(x => x.id === id);
+            document.getElementById('modalContent').innerHTML = `
+                <div style="display: flex; justify-content: space-between; margin-bottom: 2rem;">
+                    <h2>${m.title}</h2>
+                    <button onclick="closeModal()" class="btn-danger" style="width: auto; padding: 0.75rem 1.5rem;"><i class="fas fa-times"></i> Close</button>
+                </div>
+                <p style="font-size: 1.1rem; margin-bottom: 2rem;">${m.desc}</p>
+                <div style="margin-bottom: 2rem;">
+                    <span class="badge badge-success">${m.duration}</span>
+                    <span class="badge badge-warning">${m.reward} points total</span>
+                </div>
+                <h3>Milestones:</h3>
+                ${m.milestones.map((ml, i) => `
+                    <div class="milestone">
+                        <div style="flex: 1;">
+                            <h4>${i + 1}. ${ml.title}</h4>
+                            <span class="badge badge-success">${ml.points} points</span>
+                        </div>
+                        <button onclick="complete(${m.id}, ${ml.id})" class="btn-primary" style="width: auto;"><i class="fas fa-check"></i> Complete</button>
+                    </div>
+                `).join('')}
+            `;
+            document.getElementById('modal').classList.add('show');
+        }
+        
+        function complete(mid, mlid) {
+            const m = missions.find(x => x.id === mid);
+            const ml = m.milestones.find(x => x.id === mlid);
+            const key = `${mid}-${mlid}`;
+            if (!progress.milestones.includes(key)) {
+                progress.milestones.push(key);
+                progress.points += ml.points;
+                progress.challenges++;
+                localStorage.setItem('techProgress', JSON.stringify(progress));
+                alert(`✅ Milestone Completed!\\n\\n+${ml.points} points!\\n\\nTotal: ${progress.points}`);
+                closeModal();
+                show('missions');
+            }
+        }
+        
+        function getHacks() {
+            return `
+                <h1>Hackathons 🏆</h1>
+                <p style="font-size: 1.2rem;">Win prizes!</p>
+                <div class="grid">
+                    ${hackathons.map(h => `
+                        <div class="hackathon-card">
+                            <h2>${h.title}</h2>
+                            <p>${h.desc}</p>
+                            <div class="prize-tag"><i class="fas fa-trophy"></i> ${h.prize}</div>
+                            <p><i class="fas fa-users"></i> ${h.participants.toLocaleString()} participants</p>
+                            <div style="margin: 1rem 0;">
+                                ${h.categories.map(c => `<span class="badge badge-purple">${c}</span>`).join('')}
+                            </div>
+                            <button onclick="enroll(${h.id})" class="btn-primary" style="width: 100%;"><i class="fas fa-rocket"></i> Enroll Now</button>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+        
+        function enroll(id) {
+            if (!progress.hackathons.includes(id)) {
+                progress.hackathons.push(id);
+                progress.points += 50;
+                localStorage.setItem('techProgress', JSON.stringify(progress));
+                alert(`🎉 Enrolled!\\n\\n+50 points!\\n\\nTotal: ${progress.points}`);
+                show('hackathons');
+            }
+        }
+        
+        function getPlay() {
+            return `
+                <h1>Playlist 🎵</h1>
+                <p style="font-size: 1.2rem;">${playlist.length} coding tracks</p>
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 2rem;">
+                        <h3>Now Playing: ${playlist[0].title}</h3>
+                        <button onclick="playAll()" class="btn-primary" style="width: auto;"><i class="fas fa-play"></i> Play All</button>
+                    </div>
+                    ${playlist.map(s => `
+                        <div class="music-player">
+                            <div class="play-btn" onclick="play('${s.title}', '${s.artist}')"><i class="fas fa-play"></i></div>
+                            <div style="flex: 1;">
+                                <h4>${s.title}</h4>
+                                <p style="margin: 0;">${s.artist}</p>
+                            </div>
+                            <span class="badge badge-purple">${s.duration}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+        
+        function play(title, artist) {
+            alert(`🎵 Now Playing:\\n\\n${title}\\nby ${artist}`);
+        }
+        
+        function playAll() {
+            alert(`🎵 Playing all ${playlist.length} tracks!\\n\\nEnjoy! 🎧`);
+        }
+        
+        function getCert() {
+            return `
+                <h1>Certificate 🎓</h1>
+                <div class="card" style="text-align: center; padding: 4rem; border: 3px solid #10b981;">
+                    <i class="fas fa-certificate" style="font-size: 5rem; color: #10b981; margin-bottom: 2rem;"></i>
+                    <h2 style="font-size: 2.5rem;">Certificate of Excellence</h2>
+                    <h1 style="font-size: 4rem; margin: 2rem 0;">${user.name}</h1>
+                    <p style="font-size: 1.4rem;">Tech Mastery Pro Program</p>
+                    <div class="grid" style="margin: 3rem 0;">
+                        <div class="stat-card"><h3>Points</h3><div class="value" style="font-size: 2.5rem;">${progress.points}</div></div>
+                        <div class="stat-card"><h3>Challenges</h3><div class="value" style="font-size: 2.5rem;">${progress.challenges}</div></div>
+                    </div>
+                    <p style="font-size: 1.1rem;">${new Date().toLocaleDateString()}</p>
+                </div>
+            `;
+        }
+        
+        function closeModal() {
+            document.getElementById('modal').classList.remove('show');
+        }
+        
+        init();
+    </script>
+</body>
+</html>
