@@ -1,1 +1,428 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tech Mastery Pro</title><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:sans-serif;background:#0a0e1a;color:#e5e7eb}.login{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#10b981,#8b5cf6)}.login-box{background:#fff;padding:3rem;border-radius:20px;text-align:center;max-width:400px;width:90%}.login-box i{font-size:4rem;color:#10b981;margin-bottom:1rem}.login-box h1{font-size:2rem;color:#1a202c;margin-bottom:.5rem}.login-box p{color:#666;margin-bottom:2rem}input{width:100%;padding:1rem;border:2px solid #ddd;border-radius:10px;font-size:1rem;margin:1rem 0}button{padding:1rem 2rem;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;width:100%;background:#10b981;color:#fff;transition:all .3s}button:hover{background:#059669}.app{display:grid;grid-template-columns:250px 1fr;grid-template-rows:70px 1fr;min-height:100vh}.navbar{grid-column:1/-1;background:#151b2e;border-bottom:2px solid #1f2937;padding:0 2rem;display:flex;align-items:center;justify-content:space-between}.nav-brand{font-size:1.5rem;font-weight:800;color:#10b981}.sidebar{background:#151b2e;border-right:2px solid #1f2937;padding:2rem 1rem}.sidebar ul{list-style:none}.sidebar li{padding:1rem;margin-bottom:.5rem;border-radius:10px;cursor:pointer;display:flex;align-items:center;gap:1rem;transition:all .3s}.sidebar li:hover{background:#1e2538;transform:translateX(5px)}.sidebar li.active{background:#10b981}.content{padding:2rem;overflow-y:auto}.card{background:#151b2e;border-radius:15px;padding:2rem;margin-bottom:2rem;border:2px solid #1f2937}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem}.stat-card{background:#151b2e;border-radius:15px;padding:2rem;border:2px solid #1f2937}.stat-card h3{color:#9ca3af;font-size:.9rem;margin-bottom:.5rem;text-transform:uppercase}.stat-card .value{font-size:3rem;font-weight:900;color:#10b981}.mission-card{background:#151b2e;border-radius:15px;padding:2rem;margin-bottom:1.5rem;border-left:4px solid #10b981}.hackathon-card{background:#151b2e;border-radius:15px;padding:2rem;border:2px solid #1f2937}.prize-tag{display:inline-block;padding:.75rem 1.5rem;background:#fbbf24;color:#0a0e1a;border-radius:10px;font-size:1.5rem;font-weight:800;margin:1rem 0}.music-player{background:#151b2e;border-radius:12px;padding:1.5rem;margin-bottom:1rem;border:2px solid #1f2937;display:flex;align-items:center;gap:1.5rem}.play-btn{width:50px;height:50px;border-radius:50%;background:#10b981;display:flex;align-items:center;justify-content:center;cursor:pointer}.badge{display:inline-block;padding:.5rem 1rem;border-radius:20px;font-size:.85rem;font-weight:700;margin:.25rem}.badge-success{background:#10b981;color:#fff}.badge-warning{background:#fbbf24;color:#0a0e1a}.badge-purple{background:#8b5cf6;color:#fff}.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.9);z-index:1000;align-items:center;justify-content:center}.modal.show{display:flex}.modal-content{background:#151b2e;border-radius:20px;padding:2rem;max-width:800px;width:95%;max-height:90vh;overflow-y:auto;border:2px solid #1f2937}.milestone{background:#0a0e1a;padding:1.5rem;border-radius:10px;margin:1rem 0;border-left:4px solid #10b981;display:flex;justify-content:space-between;align-items:center}h1{font-size:2.5rem;margin-bottom:1rem;color:#10b981}h2{font-size:2rem;margin-bottom:1rem}h3{font-size:1.5rem;margin-bottom:.75rem}h4{font-size:1.2rem;margin-bottom:.5rem}p{color:#9ca3af;margin-bottom:1rem}@media(max-width:768px){.app{grid-template-columns:1fr}.sidebar{display:none}}</style></head><body><div id="app"></div><div id="modal" class="modal"><div class="modal-content" id="modalContent"></div></div><script>let user=JSON.parse(localStorage.getItem('techUser'))||null,progress=JSON.parse(localStorage.getItem('techProgress'))||{points:0,challenges:0,missions:[],hackathons:[],milestones:[]};const missions=[{id:1,title:'Full Stack Developer',desc:'Master frontend and backend',duration:'90 days',reward:500,milestones:[{id:1,title:'HTML/CSS Fundamentals',points:50},{id:2,title:'JavaScript Projects',points:100},{id:3,title:'React Framework',points:100},{id:4,title:'Node.js & Express',points:100},{id:5,title:'Full Stack App',points:150}]},{id:2,title:'AI/ML Engineer',desc:'Learn machine learning and AI',duration:'120 days',reward:750,milestones:[{id:1,title:'Python Mastery',points:75},{id:2,title:'Data Analysis',points:100},{id:3,title:'ML Algorithms',points:150},{id:4,title:'Deep Learning',points:200},{id:5,title:'Deploy AI Model',points:225}]},{id:3,title:'Mobile Developer',desc:'Build iOS and Android apps',duration:'75 days',reward:450,milestones:[{id:1,title:'React Native Basics',points:60},{id:2,title:'UI/UX Design',points:80},{id:3,title:'API Integration',points:100},{id:4,title:'State Management',points:110},{id:5,title:'Publish to Store',points:100}]}],hackathons=[{id:1,title:'AI Innovation Challenge',desc:'Build AI solutions',prize:'$10,000',participants:2847,categories:['ML','Computer Vision','NLP']},{id:2,title:'Web3 DeFi Hackathon',desc:'Create DeFi apps',prize:'$15,000',participants:1923,categories:['Smart Contracts','DeFi','NFTs']},{id:3,title:'Mobile App Sprint',desc:'Build mobile apps',prize:'$8,000',participants:3156,categories:['Productivity','Health','Education']}],playlist=[{title:'Code Monkey',artist:'Jonathan Coulton',duration:'3:02'},{title:'Technologic',artist:'Daft Punk',duration:'4:44'},{title:'Computer Love',artist:'Kraftwerk',duration:'7:15'},{title:'Digital Love',artist:'Daft Punk',duration:'4:58'},{title:'Mr. Roboto',artist:'Styx',duration:'5:28'},{title:'Harder Better Faster',artist:'Daft Punk',duration:'3:45'},{title:'The Algorithm',artist:'Muse',duration:'4:05'},{title:'Binary',artist:'Assemblage 23',duration:'5:12'},{title:'Ctrl+Alt+Delete',artist:'Freezepop',duration:'3:18'},{title:'Nerd Alert',artist:'The Aquabats',duration:'2:47'},{title:'Geek in the Pink',artist:'Jason Mraz',duration:'3:52'},{title:'White and Nerdy',artist:'Weird Al',duration:'2:50'},{title:'She Blinded Me with Science',artist:'Thomas Dolby',duration:'5:12'},{title:'Robot Rock',artist:'Daft Punk',duration:'4:47'},{title:'Electric Feel',artist:'MGMT',duration:'3:49'},{title:'Intergalactic',artist:'Beastie Boys',duration:'3:51'},{title:'Radioactive',artist:'Imagine Dragons',duration:'3:06'},{title:'Starlight',artist:'Muse',duration:'4:00'},{title:'Uprising',artist:'Muse',duration:'5:03'},{title:'Supermassive Black Hole',artist:'Muse',duration:'3:29'}];function init(){user?showApp():showLogin()}function showLogin(){document.getElementById('app').innerHTML='<div class="login"><div class="login-box"><i class="fas fa-brain"></i><h1>Tech Mastery Pro</h1><p>Your Complete Learning Platform</p><input type="text" id="nameInput" placeholder="Enter your name"><button onclick="login()"><i class="fas fa-rocket"></i> Start Journey</button></div></div>'}function login(){const e=document.getElementById('nameInput').value.trim();e?(user={name:e},localStorage.setItem('techUser',JSON.stringify(user)),showApp()):alert('Please enter your name!')}function showApp(){document.getElementById('app').innerHTML=`<div class="app"><nav class="navbar"><div class="nav-brand"><i class="fas fa-brain"></i> Tech Mastery Pro</div><div style="display:flex;gap:1rem;align-items:center"><span style="font-weight:600">${user.name}</span><button onclick="logout()" style="width:auto;padding:.5rem 1rem;background:#ef4444">Logout</button></div></nav><aside class="sidebar"><ul><li class="active" onclick="show('dash')"><i class="fas fa-home"></i> Dashboard</li><li onclick="show('missions')"><i class="fas fa-rocket"></i> Missions</li><li onclick="show('hackathons')"><i class="fas fa-trophy"></i> Hackathons</li><li onclick="show('playlist')"><i class="fas fa-music"></i> Playlist</li><li onclick="show('cert')"><i class="fas fa-certificate"></i> Certificate</li></ul></aside><main class="content" id="content">${getDash()}</main></div>`}function logout(){confirm('Logout? Progress is saved.')&&(user=null,location.reload())}function show(e){document.querySelectorAll('.sidebar li').forEach(e=>e.classList.remove('active')),event.target.closest('li').classList.add('active');const t=document.getElementById('content');'dash'===e?t.innerHTML=getDash():'missions'===e?t.innerHTML=getMissions():'hackathons'===e?t.innerHTML=getHacks():'playlist'===e?t.innerHTML=getPlay():'cert'===e&&(t.innerHTML=getCert())}function getDash(){return`<h1>Welcome, ${user.name}! 🚀</h1><p style="font-size:1.2rem">Your tech learning journey</p><div class="grid" style="margin-top:2rem"><div class="stat-card"><h3>Points</h3><div class="value">${progress.points}</div></div><div class="stat-card"><h3>Challenges</h3><div class="value">${progress.challenges}</div></div><div class="stat-card"><h3>Missions</h3><div class="value">${progress.missions.length}/3</div></div></div><div class="card" style="margin-top:2rem"><h2>Quick Actions</h2><div class="grid" style="margin-top:1.5rem"><button onclick="show('missions')"><i class="fas fa-rocket"></i> Start Mission</button><button onclick="show('hackathons')" style="background:#8b5cf6"><i class="fas fa-trophy"></i> Join Hackathon</button><button onclick="show('playlist')" style="background:#fbbf24;color:#0a0e1a"><i class="fas fa-music"></i> Play Music</button></div></div>`}function getMissions(){return`<h1>Missions 🚀</h1><p style="font-size:1.2rem">Complete learning paths with rewards</p>${missions.map(e=>`<div class="mission-card"><h2>${e.title}</h2><p>${e.desc}</p><div style="margin:1rem 0"><span class="badge badge-success">${e.duration}</span><span class="badge badge-warning">${e.reward} points</span><span class="badge badge-purple">${e.milestones.length} milestones</span></div><button onclick="viewMission(${e.id})" style="width:auto"><i class="fas fa-eye"></i> View Details</button></div>`).join('')}`}function viewMission(e){const t=missions.find(t=>t.id===e);document.getElementById('modalContent').innerHTML=`<div style="display:flex;justify-content:space-between;margin-bottom:2rem"><h2>${t.title}</h2><button onclick="closeModal()" style="width:auto;padding:.75rem 1.5rem;background:#ef4444"><i class="fas fa-times"></i> Close</button></div><p style="font-size:1.1rem;margin-bottom:2rem">${t.desc}</p><div style="margin-bottom:2rem"><span class="badge badge-success">${t.duration}</span><span class="badge badge-warning">${t.reward} points total</span></div><h3>Milestones:</h3>${t.milestones.map((e,s)=>`<div class="milestone"><div style="flex:1"><h4>${s+1}. ${e.title}</h4><span class="badge badge-success">${e.points} points</span></div><button onclick="complete(${t.id},${e.id})" style="width:auto"><i class="fas fa-check"></i> Complete</button></div>`).join('')}`,document.getElementById('modal').classList.add('show')}function complete(e,t){const s=missions.find(t=>t.id===e),i=s.milestones.find(e=>e.id===t),n=`${e}-${t}`;progress.milestones.includes(n)||(progress.milestones.push(n),progress.points+=i.points,progress.challenges++,localStorage.setItem('techProgress',JSON.stringify(progress)),alert(`✅ Milestone Completed!\n\n+${i.points} points!\n\nTotal: ${progress.points}`),closeModal(),show('missions'))}function getHacks(){return`<h1>Hackathons 🏆</h1><p style="font-size:1.2rem">Win prizes!</p><div class="grid">${hackathons.map(e=>`<div class="hackathon-card"><h2>${e.title}</h2><p>${e.desc}</p><div class="prize-tag"><i class="fas fa-trophy"></i> ${e.prize}</div><p><i class="fas fa-users"></i> ${e.participants.toLocaleString()} participants</p><div style="margin:1rem 0">${e.categories.map(e=>`<span class="badge badge-purple">${e}</span>`).join('')}</div><button onclick="enroll(${e.id})" style="width:100%"><i class="fas fa-rocket"></i> Enroll Now</button></div>`).join('')}</div>`}function enroll(e){progress.hackathons.includes(e)||(progress.hackathons.push(e),progress.points+=50,localStorage.setItem('techProgress',JSON.stringify(progress)),alert(`🎉 Enrolled!\n\n+50 points!\n\nTotal: ${progress.points}`),show('hackathons'))}function getPlay(){return`<h1>Playlist 🎵</h1><p style="font-size:1.2rem">${playlist.length} coding tracks</p><div class="card"><div style="display:flex;justify-content:space-between;margin-bottom:2rem"><h3>Now Playing: ${playlist[0].title}</h3><button onclick="playAll()" style="width:auto"><i class="fas fa-play"></i> Play All</button></div>${playlist.map(e=>`<div class="music-player"><div class="play-btn" onclick="play('${e.title}','${e.artist}')"><i class="fas fa-play"></i></div><div style="flex:1"><h4>${e.title}</h4><p style="margin:0">${e.artist}</p></div><span class="badge badge-purple">${e.duration}</span></div>`).join('')}</div>`}function play(e,t){alert(`🎵 Now Playing:\n\n${e}\nby ${t}`)}function playAll(){alert(`🎵 Playing all ${playlist.length} tracks!\n\nEnjoy! 🎧`)}function getCert(){return`<h1>Certificate 🎓</h1><div class="card" style="text-align:center;padding:4rem;border:3px solid #10b981"><i class="fas fa-certificate" style="font-size:5rem;color:#10b981;margin-bottom:2rem"></i><h2 style="font-size:2.5rem">Certificate of Excellence</h2><h1 style="font-size:4rem;margin:2rem 0">${user.name}</h1><p style="font-size:1.4rem">Tech Mastery Pro Program</p><div class="grid" style="margin:3rem 0"><div class="stat-card"><h3>Points</h3><div class="value" style="font-size:2.5rem">${progress.points}</div></div><div class="stat-card"><h3>Challenges</h3><div class="value" style="font-size:2.5rem">${progress.challenges}</div></div></div><p style="font-size:1.1rem">${new Date().toLocaleDateString()}</p></div>`}function closeModal(){document.getElementById('modal').classList.remove('show')}init()</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tech Mastery Complete</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:sans-serif;background:#0a0e1a;color:#e5e7eb}
+.login{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#10b981,#8b5cf6)}
+.login-box{background:#fff;padding:3rem;border-radius:20px;text-align:center;max-width:400px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+.login-box i{font-size:4rem;color:#10b981;margin-bottom:1rem}
+.login-box h1{font-size:2rem;color:#1a202c;margin-bottom:.5rem}
+.login-box p{color:#666;margin-bottom:2rem}
+input{width:100%;padding:1rem;border:2px solid #ddd;border-radius:10px;font-size:1rem;margin:1rem 0}
+button{padding:1rem 2rem;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;width:100%;background:#10b981;color:#fff;transition:all .3s}
+button:hover{background:#059669;transform:translateY(-2px)}
+.app{display:grid;grid-template-columns:250px 1fr;grid-template-rows:70px 1fr;min-height:100vh}
+.navbar{grid-column:1/-1;background:#151b2e;border-bottom:2px solid #1f2937;padding:0 2rem;display:flex;align-items:center;justify-content:space-between}
+.nav-brand{font-size:1.5rem;font-weight:800;color:#10b981}
+.sidebar{background:#151b2e;border-right:2px solid #1f2937;padding:2rem 1rem;overflow-y:auto}
+.sidebar ul{list-style:none}
+.sidebar li{padding:1rem;margin-bottom:.5rem;border-radius:10px;cursor:pointer;display:flex;align-items:center;gap:1rem;transition:all .3s}
+.sidebar li:hover{background:#1e2538;transform:translateX(5px)}
+.sidebar li.active{background:#10b981}
+.content{padding:2rem;overflow-y:auto;max-height:calc(100vh - 70px)}
+.card{background:#151b2e;border-radius:15px;padding:2rem;margin-bottom:2rem;border:2px solid #1f2937;transition:all .3s}
+.card:hover{transform:translateY(-4px);border-color:#10b981}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem}
+.stat-card{background:#151b2e;border-radius:15px;padding:2rem;border:2px solid #1f2937}
+.stat-card h3{color:#9ca3af;font-size:.9rem;margin-bottom:.5rem;text-transform:uppercase}
+.stat-card .value{font-size:3rem;font-weight:900;color:#10b981}
+.book-card{background:#151b2e;border-radius:15px;padding:1.5rem;border:2px solid #1f2937;transition:all .3s}
+.book-card:hover{transform:translateY(-5px);border-color:#10b981}
+.book-cover{width:100%;height:200px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:3rem;margin-bottom:1rem}
+.resource-item{background:#1e2538;padding:1.5rem;border-radius:10px;margin-bottom:1rem;border-left:4px solid #10b981}
+.roadmap-step{background:#1e2538;padding:1.5rem;border-radius:10px;margin:1rem 0;border-left:4px solid #10b981;position:relative}
+.roadmap-step::before{content:'';position:absolute;left:-2px;top:100%;width:2px;height:1rem;background:#10b981}
+.music-player{background:#151b2e;border-radius:12px;padding:1.5rem;margin-bottom:1rem;border:2px solid #1f2937;display:flex;align-items:center;gap:1.5rem;transition:all .3s}
+.music-player:hover{background:#1e2538;transform:translateX(8px)}
+.play-btn{width:50px;height:50px;border-radius:50%;background:#10b981;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s}
+.play-btn:hover{background:#059669;transform:scale(1.1)}
+.badge{display:inline-block;padding:.5rem 1rem;border-radius:20px;font-size:.85rem;font-weight:700;margin:.25rem}
+.badge-success{background:#10b981;color:#fff}
+.badge-warning{background:#fbbf24;color:#0a0e1a}
+.badge-purple{background:#8b5cf6;color:#fff}
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:1000;align-items:center;justify-content:center}
+.modal.show{display:flex}
+.modal-content{background:#151b2e;border-radius:20px;padding:2rem;max-width:800px;width:95%;max-height:90vh;overflow-y:auto;border:2px solid #1f2937}
+h1{font-size:2.5rem;margin-bottom:1rem;color:#10b981}
+h2{font-size:2rem;margin-bottom:1rem}
+h3{font-size:1.5rem;margin-bottom:.75rem}
+h4{font-size:1.2rem;margin-bottom:.5rem}
+p{color:#9ca3af;margin-bottom:1rem}
+@media(max-width:768px){.app{grid-template-columns:1fr}.sidebar{display:none}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="modal" class="modal"><div class="modal-content" id="modalContent"></div></div>
+<script>
+let user=JSON.parse(localStorage.getItem('techUser'))||null;
+let progress=JSON.parse(localStorage.getItem('techProgress'))||{points:0,challenges:0,booksRead:0,resourcesUsed:0};
+
+const books=[
+{id:1,title:'Clean Code',author:'Robert Martin',category:'Programming',pages:464,rating:4.8,desc:'A handbook of agile software craftsmanship'},
+{id:2,title:'Design Patterns',author:'Gang of Four',category:'Architecture',pages:395,rating:4.7,desc:'Elements of reusable object-oriented software'},
+{id:3,title:'The Pragmatic Programmer',author:'Hunt & Thomas',category:'Career',pages:352,rating:4.9,desc:'Your journey to mastery'},
+{id:4,title:'Cracking the Coding Interview',author:'Gayle McDowell',category:'Interview',pages:687,rating:4.6,desc:'189 programming questions and solutions'},
+{id:5,title:'Deep Learning',author:'Ian Goodfellow',category:'AI/ML',pages:800,rating:4.5,desc:'Comprehensive guide to deep learning'},
+{id:6,title:'JavaScript: The Good Parts',author:'Douglas Crockford',category:'Web Dev',pages:176,rating:4.4,desc:'Unearthing the excellence in JavaScript'}
+];
+
+const resources=[
+{id:1,title:'MDN Web Docs',url:'https://developer.mozilla.org',category:'Documentation',desc:'Complete web development documentation'},
+{id:2,title:'GitHub',url:'https://github.com',category:'Code Hosting',desc:'Version control and collaboration'},
+{id:3,title:'Stack Overflow',url:'https://stackoverflow.com',category:'Q&A',desc:'Programming questions and answers'},
+{id:4,title:'LeetCode',url:'https://leetcode.com',category:'Practice',desc:'Coding interview preparation'},
+{id:5,title:'freeCodeCamp',url:'https://freecodecamp.org',category:'Learning',desc:'Free coding bootcamp'},
+{id:6,title:'Coursera',url:'https://coursera.org',category:'Courses',desc:'Online courses from top universities'}
+];
+
+const learningPaths=[
+{id:1,title:'Full Stack Web Developer',duration:'6 months',topics:['HTML/CSS','JavaScript','React','Node.js','MongoDB','Deployment'],difficulty:'Intermediate'},
+{id:2,title:'AI/ML Engineer',duration:'8 months',topics:['Python','NumPy/Pandas','Machine Learning','Deep Learning','TensorFlow','Projects'],difficulty:'Advanced'},
+{id:3,title:'Mobile App Developer',duration:'5 months',topics:['React Native','Flutter','UI/UX','APIs','State Management','Publishing'],difficulty:'Intermediate'},
+{id:4,title:'DevOps Engineer',duration:'7 months',topics:['Linux','Docker','Kubernetes','CI/CD','AWS','Monitoring'],difficulty:'Advanced'}
+];
+
+const roadmaps=[
+{id:1,title:'Frontend Developer Roadmap',steps:[
+{title:'HTML & CSS Basics',duration:'2 weeks',desc:'Learn structure and styling'},
+{title:'JavaScript Fundamentals',duration:'4 weeks',desc:'Master programming basics'},
+{title:'React Framework',duration:'6 weeks',desc:'Build modern UIs'},
+{title:'State Management',duration:'3 weeks',desc:'Redux, Context API'},
+{title:'Build Projects',duration:'8 weeks',desc:'Portfolio projects'}
+]},
+{id:2,title:'Backend Developer Roadmap',steps:[
+{title:'Programming Language',duration:'4 weeks',desc:'Node.js or Python'},
+{title:'Databases',duration:'4 weeks',desc:'SQL and NoSQL'},
+{title:'APIs & REST',duration:'3 weeks',desc:'Build RESTful services'},
+{title:'Authentication',duration:'2 weeks',desc:'JWT, OAuth'},
+{title:'Deployment',duration:'3 weeks',desc:'Cloud platforms'}
+]}
+];
+
+const playlist=[
+{title:'Code Monkey',artist:'Jonathan Coulton',duration:'3:02',genre:'Comedy'},
+{title:'Technologic',artist:'Daft Punk',duration:'4:44',genre:'Electronic'},
+{title:'Computer Love',artist:'Kraftwerk',duration:'7:15',genre:'Electronic'},
+{title:'Digital Love',artist:'Daft Punk',duration:'4:58',genre:'Electronic'},
+{title:'Mr. Roboto',artist:'Styx',duration:'5:28',genre:'Rock'},
+{title:'Harder Better Faster',artist:'Daft Punk',duration:'3:45',genre:'Electronic'},
+{title:'The Algorithm',artist:'Muse',duration:'4:05',genre:'Rock'},
+{title:'Binary',artist:'Assemblage 23',duration:'5:12',genre:'Industrial'},
+{title:'Ctrl+Alt+Delete',artist:'Freezepop',duration:'3:18',genre:'Synthpop'},
+{title:'Nerd Alert',artist:'The Aquabats',duration:'2:47',genre:'Ska'},
+{title:'Geek in the Pink',artist:'Jason Mraz',duration:'3:52',genre:'Pop'},
+{title:'White and Nerdy',artist:'Weird Al',duration:'2:50',genre:'Comedy'},
+{title:'She Blinded Me with Science',artist:'Thomas Dolby',duration:'5:12',genre:'New Wave'},
+{title:'Robot Rock',artist:'Daft Punk',duration:'4:47',genre:'Electronic'},
+{title:'Electric Feel',artist:'MGMT',duration:'3:49',genre:'Indie'},
+{title:'Intergalactic',artist:'Beastie Boys',duration:'3:51',genre:'Hip Hop'},
+{title:'Radioactive',artist:'Imagine Dragons',duration:'3:06',genre:'Rock'},
+{title:'Starlight',artist:'Muse',duration:'4:00',genre:'Rock'},
+{title:'Uprising',artist:'Muse',duration:'5:03',genre:'Rock'},
+{title:'Supermassive Black Hole',artist:'Muse',duration:'3:29',genre:'Rock'}
+];
+
+function init(){user?showApp():showLogin()}
+
+function showLogin(){
+document.getElementById('app').innerHTML=`
+<div class="login">
+<div class="login-box">
+<i class="fas fa-brain"></i>
+<h1>Tech Mastery Complete</h1>
+<p>Your Ultimate Learning Platform</p>
+<input type="text" id="nameInput" placeholder="Enter your name">
+<button onclick="login()"><i class="fas fa-rocket"></i> Start Journey</button>
+</div>
+</div>
+`;
+}
+
+function login(){
+const name=document.getElementById('nameInput').value.trim();
+if(name){
+user={name};
+localStorage.setItem('techUser',JSON.stringify(user));
+showApp();
+}else alert('Please enter your name!');
+}
+
+function showApp(){
+document.getElementById('app').innerHTML=`
+<div class="app">
+<nav class="navbar">
+<div class="nav-brand"><i class="fas fa-brain"></i> Tech Mastery</div>
+<div style="display:flex;gap:1rem;align-items:center">
+<span style="font-weight:600">${user.name}</span>
+<button onclick="logout()" style="width:auto;padding:.5rem 1rem;background:#ef4444">Logout</button>
+</div>
+</nav>
+<aside class="sidebar">
+<ul>
+<li class="active" onclick="show('dash')"><i class="fas fa-home"></i> Dashboard</li>
+<li onclick="show('books')"><i class="fas fa-book"></i> Books Library</li>
+<li onclick="show('resources')"><i class="fas fa-link"></i> Resources</li>
+<li onclick="show('learning')"><i class="fas fa-graduation-cap"></i> Learning Paths</li>
+<li onclick="show('roadmaps')"><i class="fas fa-map"></i> Roadmaps</li>
+<li onclick="show('playlist')"><i class="fas fa-music"></i> Playlist</li>
+<li onclick="show('missions')"><i class="fas fa-rocket"></i> Missions</li>
+<li onclick="show('hackathons')"><i class="fas fa-trophy"></i> Hackathons</li>
+<li onclick="show('cert')"><i class="fas fa-certificate"></i> Certificate</li>
+</ul>
+</aside>
+<main class="content" id="content">${getDash()}</main>
+</div>
+`;
+}
+
+function logout(){if(confirm('Logout? Progress is saved.')){user=null;location.reload()}}
+
+function show(s){
+document.querySelectorAll('.sidebar li').forEach(li=>li.classList.remove('active'));
+event.target.closest('li').classList.add('active');
+const c=document.getElementById('content');
+if(s==='dash')c.innerHTML=getDash();
+else if(s==='books')c.innerHTML=getBooks();
+else if(s==='resources')c.innerHTML=getResources();
+else if(s==='learning')c.innerHTML=getLearning();
+else if(s==='roadmaps')c.innerHTML=getRoadmaps();
+else if(s==='playlist')c.innerHTML=getPlaylist();
+else if(s==='missions')c.innerHTML=getMissions();
+else if(s==='hackathons')c.innerHTML=getHackathons();
+else if(s==='cert')c.innerHTML=getCert();
+}
+
+function getDash(){
+return`
+<h1>Welcome, ${user.name}! 🚀</h1>
+<p style="font-size:1.2rem">Your complete tech learning journey</p>
+<div class="grid" style="margin-top:2rem">
+<div class="stat-card"><h3>Points</h3><div class="value">${progress.points}</div></div>
+<div class="stat-card"><h3>Challenges</h3><div class="value">${progress.challenges}</div></div>
+<div class="stat-card"><h3>Books Read</h3><div class="value">${progress.booksRead}/${books.length}</div></div>
+<div class="stat-card"><h3>Resources</h3><div class="value">${progress.resourcesUsed}/${resources.length}</div></div>
+</div>
+<div class="card" style="margin-top:2rem">
+<h2>Quick Actions</h2>
+<div class="grid" style="margin-top:1.5rem">
+<button onclick="show('books')"><i class="fas fa-book"></i> Browse Books</button>
+<button onclick="show('learning')" style="background:#8b5cf6"><i class="fas fa-graduation-cap"></i> Learning Paths</button>
+<button onclick="show('playlist')" style="background:#fbbf24;color:#0a0e1a"><i class="fas fa-music"></i> Play Music</button>
+</div>
+</div>
+`;
+}
+
+function getBooks(){
+return`
+<h1>📚 Books Library</h1>
+<p style="font-size:1.2rem">${books.length} essential tech books</p>
+<div class="grid" style="margin-top:2rem">
+${books.map(b=>`
+<div class="book-card">
+<div class="book-cover"><i class="fas fa-book-open"></i></div>
+<h3>${b.title}</h3>
+<p style="color:#9ca3af;margin:.5rem 0">by ${b.author}</p>
+<div style="margin:1rem 0">
+<span class="badge badge-purple">${b.category}</span>
+<span class="badge badge-warning">${b.pages} pages</span>
+<span class="badge badge-success">⭐ ${b.rating}</span>
+</div>
+<p style="font-size:.9rem;margin:1rem 0">${b.desc}</p>
+<button onclick="readBook(${b.id})" style="width:100%"><i class="fas fa-book-reader"></i> Read Now</button>
+</div>
+`).join('')}
+</div>
+`;
+}
+
+function readBook(id){
+progress.booksRead++;
+progress.points+=50;
+localStorage.setItem('techProgress',JSON.stringify(progress));
+alert('📚 Book added to reading list!\\n\\n+50 points!');
+show('books');
+}
+
+function getResources(){
+return`
+<h1>🔗 Tech Resources</h1>
+<p style="font-size:1.2rem">${resources.length} curated resources</p>
+${resources.map(r=>`
+<div class="resource-item">
+<h3>${r.title}</h3>
+<span class="badge badge-purple">${r.category}</span>
+<p style="margin:1rem 0">${r.desc}</p>
+<button onclick="useResource(${r.id},'${r.url}')" style="width:auto"><i class="fas fa-external-link-alt"></i> Visit Resource</button>
+</div>
+`).join('')}
+`;
+}
+
+function useResource(id,url){
+progress.resourcesUsed++;
+progress.points+=10;
+localStorage.setItem('techProgress',JSON.stringify(progress));
+window.open(url,'_blank');
+alert('✅ Resource accessed!\\n\\n+10 points!');
+}
+
+function getLearning(){
+return`
+<h1>🎓 Learning Paths</h1>
+<p style="font-size:1.2rem">${learningPaths.length} structured learning paths</p>
+${learningPaths.map(lp=>`
+<div class="card">
+<h2>${lp.title}</h2>
+<div style="margin:1rem 0">
+<span class="badge badge-success">${lp.duration}</span>
+<span class="badge badge-warning">${lp.difficulty}</span>
+<span class="badge badge-purple">${lp.topics.length} topics</span>
+</div>
+<h4>Topics Covered:</h4>
+<div style="margin:1rem 0">
+${lp.topics.map(t=>`<span class="badge badge-success">${t}</span>`).join('')}
+</div>
+<button onclick="startPath(${lp.id})" style="width:auto"><i class="fas fa-play"></i> Start Learning</button>
+</div>
+`).join('')}
+`;
+}
+
+function startPath(id){
+progress.points+=100;
+localStorage.setItem('techProgress',JSON.stringify(progress));
+alert('🎓 Learning path started!\\n\\n+100 points!');
+show('learning');
+}
+
+function getRoadmaps(){
+return`
+<h1>🗺️ Career Roadmaps</h1>
+<p style="font-size:1.2rem">${roadmaps.length} detailed career roadmaps</p>
+${roadmaps.map(rm=>`
+<div class="card">
+<h2>${rm.title}</h2>
+<div style="margin-top:2rem">
+${rm.steps.map((step,i)=>`
+<div class="roadmap-step">
+<h4>Step ${i+1}: ${step.title}</h4>
+<span class="badge badge-warning">${step.duration}</span>
+<p style="margin-top:.5rem">${step.desc}</p>
+</div>
+`).join('')}
+</div>
+<button onclick="followRoadmap(${rm.id})" style="width:auto;margin-top:1rem"><i class="fas fa-route"></i> Follow Roadmap</button>
+</div>
+`).join('')}
+`;
+}
+
+function followRoadmap(id){
+progress.points+=75;
+localStorage.setItem('techProgress',JSON.stringify(progress));
+alert('🗺️ Roadmap activated!\\n\\n+75 points!');
+show('roadmaps');
+}
+
+function getPlaylist(){
+return`
+<h1>🎵 Coding Playlist</h1>
+<p style="font-size:1.2rem">${playlist.length} perfect coding tracks</p>
+<div class="card">
+<div style="display:flex;justify-content:space-between;margin-bottom:2rem">
+<h3>Now Playing: ${playlist[0].title}</h3>
+<button onclick="playAll()" style="width:auto"><i class="fas fa-play"></i> Play All</button>
+</div>
+${playlist.map(s=>`
+<div class="music-player">
+<div class="play-btn" onclick="play('${s.title}','${s.artist}')"><i class="fas fa-play"></i></div>
+<div style="flex:1">
+<h4>${s.title}</h4>
+<p style="margin:0;color:#9ca3af">${s.artist} • ${s.genre}</p>
+</div>
+<span class="badge badge-purple">${s.duration}</span>
+</div>
+`).join('')}
+</div>
+`;
+}
+
+function play(title,artist){
+alert(`🎵 Now Playing:\\n\\n${title}\\nby ${artist}\\n\\nEnjoy your coding session! 🎧`);
+}
+
+function playAll(){
+alert(`🎵 Playing all ${playlist.length} tracks!\\n\\nPerfect music for coding! 🎧`);
+}
+
+function getMissions(){
+return`
+<h1>🚀 Epic Missions</h1>
+<div class="card">
+<h2>Full Stack Developer Mission</h2>
+<p>Build 5 complete web applications</p>
+<span class="badge badge-warning">500 points</span>
+<button onclick="startMission()" style="width:auto;margin-top:1rem">Start Mission</button>
+</div>
+<div class="card">
+<h2>AI/ML Engineer Mission</h2>
+<p>Create 3 machine learning projects</p>
+<span class="badge badge-warning">750 points</span>
+<button onclick="startMission()" style="width:auto;margin-top:1rem">Start Mission</button>
+</div>
+`;
+}
+
+function startMission(){
+alert('🚀 Mission started! Good luck!');
+}
+
+function getHackathons(){
+return`
+<h1>🏆 Live Hackathons</h1>
+<div class="card">
+<h2>AI Innovation Challenge</h2>
+<p>Build AI solutions for real-world problems</p>
+<div style="margin:1rem 0">
+<span class="badge badge-warning">$10,000 Prize</span>
+<span class="badge badge-purple">2847 participants</span>
+</div>
+<button onclick="enroll()" style="width:100%">Enroll Now</button>
+</div>
+`;
+}
+
+function enroll(){
+progress.points+=50;
+localStorage.setItem('techProgress',JSON.stringify(progress));
+alert('🎉 Enrolled in hackathon!\\n\\n+50 points!');
+}
+
+function getCert(){
+return`
+<h1>🎓 Certificate</h1>
+<div class="card" style="text-align:center;padding:4rem;border:3px solid #10b981">
+<i class="fas fa-certificate" style="font-size:5rem;color:#10b981;margin-bottom:2rem"></i>
+<h2 style="font-size:2.5rem">Certificate of Excellence</h2>
+<h1 style="font-size:4rem;margin:2rem 0">${user.name}</h1>
+<p style="font-size:1.4rem">Tech Mastery Complete Program</p>
+<div class="grid" style="margin:3rem 0">
+<div class="stat-card"><h3>Points</h3><div class="value" style="font-size:2.5rem">${progress.points}</div></div>
+<div class="stat-card"><h3>Books</h3><div class="value" style="font-size:2.5rem">${progress.booksRead}</div></div>
+</div>
+<p style="font-size:1.1rem">${new Date().toLocaleDateString()}</p>
+</div>
+`;
+}
+
+init();
+</script>
+</body>
+</html>
