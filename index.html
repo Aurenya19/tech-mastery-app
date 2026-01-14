@@ -7,15 +7,23 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:sans-serif;background:#0a0e1a;color:#e5e7eb}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#0a0e1a;color:#e5e7eb}
+
+/* Login Screen */
 .login{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#10b981,#8b5cf6)}
 .login-box{background:#fff;padding:3rem;border-radius:20px;text-align:center;max-width:400px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
 .login-box i{font-size:4rem;color:#10b981;margin-bottom:1rem}
 .login-box h1{font-size:2rem;color:#1a202c;margin-bottom:.5rem}
 .login-box p{color:#666;margin-bottom:2rem}
+
+/* Form Elements */
 input{width:100%;padding:1rem;border:2px solid #ddd;border-radius:10px;font-size:1rem;margin:1rem 0}
-button{padding:1rem 2rem;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;width:100%;background:#10b981;color:#fff;transition:all .3s}
+input:focus{outline:none;border-color:#10b981}
+button{padding:1rem 2rem;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;background:#10b981;color:#fff;transition:all .3s;width:100%}
 button:hover{background:#059669;transform:translateY(-2px)}
+button:active{transform:translateY(0)}
+
+/* App Layout */
 .app{display:grid;grid-template-columns:250px 1fr;grid-template-rows:70px 1fr;min-height:100vh}
 .navbar{grid-column:1/-1;background:#151b2e;border-bottom:2px solid #1f2937;padding:0 2rem;display:flex;align-items:center;justify-content:space-between}
 .nav-brand{font-size:1.5rem;font-weight:800;color:#10b981}
@@ -23,403 +31,547 @@ button:hover{background:#059669;transform:translateY(-2px)}
 .sidebar ul{list-style:none}
 .sidebar li{padding:1rem;margin-bottom:.5rem;border-radius:10px;cursor:pointer;display:flex;align-items:center;gap:1rem;transition:all .3s}
 .sidebar li:hover{background:#1e2538;transform:translateX(5px)}
-.sidebar li.active{background:#10b981}
+.sidebar li.active{background:#10b981;color:#fff}
 .content{padding:2rem;overflow-y:auto;max-height:calc(100vh - 70px)}
+
+/* Cards */
 .card{background:#151b2e;border-radius:15px;padding:2rem;margin-bottom:2rem;border:2px solid #1f2937;transition:all .3s}
 .card:hover{transform:translateY(-4px);border-color:#10b981}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem}
-.stat-card{background:#151b2e;border-radius:15px;padding:2rem;border:2px solid #1f2937}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;margin-top:2rem}
+.stat-card{background:#151b2e;border-radius:15px;padding:2rem;border:2px solid #1f2937;text-align:center}
 .stat-card h3{color:#9ca3af;font-size:.9rem;margin-bottom:.5rem;text-transform:uppercase}
 .stat-card .value{font-size:3rem;font-weight:900;color:#10b981}
-.book-card{background:#151b2e;border-radius:15px;padding:1.5rem;border:2px solid #1f2937;transition:all .3s}
+
+/* Book Cards */
+.book-card{background:#151b2e;border-radius:15px;padding:1.5rem;border:2px solid #1f2937;transition:all .3s;cursor:pointer}
 .book-card:hover{transform:translateY(-5px);border-color:#10b981}
-.book-cover{width:100%;height:200px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:3rem;margin-bottom:1rem}
-.resource-item{background:#1e2538;padding:1.5rem;border-radius:10px;margin-bottom:1rem;border-left:4px solid #10b981}
-.roadmap-step{background:#1e2538;padding:1.5rem;border-radius:10px;margin:1rem 0;border-left:4px solid #10b981;position:relative}
-.roadmap-step::before{content:'';position:absolute;left:-2px;top:100%;width:2px;height:1rem;background:#10b981}
-.music-player{background:#151b2e;border-radius:12px;padding:1.5rem;margin-bottom:1rem;border:2px solid #1f2937;display:flex;align-items:center;gap:1.5rem;transition:all .3s}
-.music-player:hover{background:#1e2538;transform:translateX(8px)}
-.play-btn{width:50px;height:50px;border-radius:50%;background:#10b981;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s}
+.book-cover{width:100%;height:200px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:3rem;margin-bottom:1rem;color:#fff}
+
+/* Resource Items */
+.resource-item{background:#1e2538;padding:1.5rem;border-radius:10px;margin-bottom:1rem;border-left:4px solid #10b981;transition:all .3s}
+.resource-item:hover{background:#252d42;transform:translateX(5px)}
+
+/* Roadmap Steps */
+.roadmap-step{background:#1e2538;padding:1.5rem;border-radius:10px;margin:1rem 0;border-left:4px solid #10b981}
+
+/* Music Player */
+.music-player{background:#151b2e;border-radius:12px;padding:1.5rem;margin-bottom:1rem;border:2px solid #1f2937;display:flex;align-items:center;gap:1.5rem;transition:all .3s;cursor:pointer}
+.music-player:hover{background:#1e2538;transform:translateX(8px);border-color:#10b981}
+.play-btn{width:50px;height:50px;border-radius:50%;background:#10b981;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;flex-shrink:0}
 .play-btn:hover{background:#059669;transform:scale(1.1)}
+
+/* Mission Cards */
+.mission-card{background:#151b2e;border-radius:15px;padding:2rem;margin-bottom:1.5rem;border-left:4px solid #10b981;transition:all .3s}
+.mission-card:hover{transform:translateX(5px)}
+
+/* Hackathon Cards */
+.hackathon-card{background:#151b2e;border-radius:15px;padding:2rem;border:2px solid #1f2937;transition:all .3s}
+.hackathon-card:hover{transform:translateY(-5px);border-color:#8b5cf6}
+
+/* Badges */
 .badge{display:inline-block;padding:.5rem 1rem;border-radius:20px;font-size:.85rem;font-weight:700;margin:.25rem}
 .badge-success{background:#10b981;color:#fff}
 .badge-warning{background:#fbbf24;color:#0a0e1a}
 .badge-purple{background:#8b5cf6;color:#fff}
-.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:1000;align-items:center;justify-content:center}
-.modal.show{display:flex}
-.modal-content{background:#151b2e;border-radius:20px;padding:2rem;max-width:800px;width:95%;max-height:90vh;overflow-y:auto;border:2px solid #1f2937}
+.badge-danger{background:#ef4444;color:#fff}
+
+/* Typography */
 h1{font-size:2.5rem;margin-bottom:1rem;color:#10b981}
-h2{font-size:2rem;margin-bottom:1rem}
-h3{font-size:1.5rem;margin-bottom:.75rem}
-h4{font-size:1.2rem;margin-bottom:.5rem}
-p{color:#9ca3af;margin-bottom:1rem}
-@media(max-width:768px){.app{grid-template-columns:1fr}.sidebar{display:none}}
+h2{font-size:2rem;margin-bottom:1rem;color:#e5e7eb}
+h3{font-size:1.5rem;margin-bottom:.75rem;color:#e5e7eb}
+h4{font-size:1.2rem;margin-bottom:.5rem;color:#e5e7eb}
+p{color:#9ca3af;margin-bottom:1rem;line-height:1.6}
+
+/* Responsive */
+@media(max-width:768px){.app{grid-template-columns:1fr}.sidebar{display:none}.content{padding:1rem}}
 </style>
 </head>
 <body>
 <div id="app"></div>
-<div id="modal" class="modal"><div class="modal-content" id="modalContent"></div></div>
+
 <script>
-let user=JSON.parse(localStorage.getItem('techUser'))||null;
-let progress=JSON.parse(localStorage.getItem('techProgress'))||{points:0,challenges:0,booksRead:0,resourcesUsed:0};
+// Initialize
+let user = JSON.parse(localStorage.getItem('techUser')) || null;
+let progress = JSON.parse(localStorage.getItem('techProgress')) || {
+  points: 0,
+  booksRead: [],
+  resourcesUsed: [],
+  pathsStarted: [],
+  roadmapsFollowed: [],
+  missionsActive: [],
+  hackathonsEnrolled: []
+};
 
-const books=[
-{id:1,title:'Clean Code',author:'Robert Martin',category:'Programming',pages:464,rating:4.8,desc:'A handbook of agile software craftsmanship'},
-{id:2,title:'Design Patterns',author:'Gang of Four',category:'Architecture',pages:395,rating:4.7,desc:'Elements of reusable object-oriented software'},
-{id:3,title:'The Pragmatic Programmer',author:'Hunt & Thomas',category:'Career',pages:352,rating:4.9,desc:'Your journey to mastery'},
-{id:4,title:'Cracking the Coding Interview',author:'Gayle McDowell',category:'Interview',pages:687,rating:4.6,desc:'189 programming questions and solutions'},
-{id:5,title:'Deep Learning',author:'Ian Goodfellow',category:'AI/ML',pages:800,rating:4.5,desc:'Comprehensive guide to deep learning'},
-{id:6,title:'JavaScript: The Good Parts',author:'Douglas Crockford',category:'Web Dev',pages:176,rating:4.4,desc:'Unearthing the excellence in JavaScript'}
+// Data
+const books = [
+  {id:1, title:'Clean Code', author:'Robert C. Martin', category:'Programming', pages:464, rating:4.8, desc:'A handbook of agile software craftsmanship'},
+  {id:2, title:'Design Patterns', author:'Gang of Four', category:'Architecture', pages:395, rating:4.7, desc:'Elements of reusable object-oriented software'},
+  {id:3, title:'The Pragmatic Programmer', author:'Hunt & Thomas', category:'Career', pages:352, rating:4.9, desc:'Your journey to mastery'},
+  {id:4, title:'Cracking the Coding Interview', author:'Gayle McDowell', category:'Interview', pages:687, rating:4.6, desc:'189 programming questions and solutions'},
+  {id:5, title:'Deep Learning', author:'Ian Goodfellow', category:'AI/ML', pages:800, rating:4.5, desc:'Comprehensive guide to deep learning'},
+  {id:6, title:'JavaScript: The Good Parts', author:'Douglas Crockford', category:'Web Dev', pages:176, rating:4.4, desc:'Unearthing the excellence in JavaScript'}
 ];
 
-const resources=[
-{id:1,title:'MDN Web Docs',url:'https://developer.mozilla.org',category:'Documentation',desc:'Complete web development documentation'},
-{id:2,title:'GitHub',url:'https://github.com',category:'Code Hosting',desc:'Version control and collaboration'},
-{id:3,title:'Stack Overflow',url:'https://stackoverflow.com',category:'Q&A',desc:'Programming questions and answers'},
-{id:4,title:'LeetCode',url:'https://leetcode.com',category:'Practice',desc:'Coding interview preparation'},
-{id:5,title:'freeCodeCamp',url:'https://freecodecamp.org',category:'Learning',desc:'Free coding bootcamp'},
-{id:6,title:'Coursera',url:'https://coursera.org',category:'Courses',desc:'Online courses from top universities'}
+const resources = [
+  {id:1, title:'MDN Web Docs', url:'https://developer.mozilla.org', category:'Documentation', desc:'Complete web development documentation'},
+  {id:2, title:'GitHub', url:'https://github.com', category:'Code Hosting', desc:'Version control and collaboration'},
+  {id:3, title:'Stack Overflow', url:'https://stackoverflow.com', category:'Q&A', desc:'Programming questions and answers'},
+  {id:4, title:'LeetCode', url:'https://leetcode.com', category:'Practice', desc:'Coding interview preparation'},
+  {id:5, title:'freeCodeCamp', url:'https://freecodecamp.org', category:'Learning', desc:'Free coding bootcamp'},
+  {id:6, title:'Coursera', url:'https://coursera.org', category:'Courses', desc:'Online courses from universities'}
 ];
 
-const learningPaths=[
-{id:1,title:'Full Stack Web Developer',duration:'6 months',topics:['HTML/CSS','JavaScript','React','Node.js','MongoDB','Deployment'],difficulty:'Intermediate'},
-{id:2,title:'AI/ML Engineer',duration:'8 months',topics:['Python','NumPy/Pandas','Machine Learning','Deep Learning','TensorFlow','Projects'],difficulty:'Advanced'},
-{id:3,title:'Mobile App Developer',duration:'5 months',topics:['React Native','Flutter','UI/UX','APIs','State Management','Publishing'],difficulty:'Intermediate'},
-{id:4,title:'DevOps Engineer',duration:'7 months',topics:['Linux','Docker','Kubernetes','CI/CD','AWS','Monitoring'],difficulty:'Advanced'}
+const learningPaths = [
+  {id:1, title:'Full Stack Web Developer', duration:'6 months', topics:['HTML/CSS','JavaScript','React','Node.js','MongoDB','Deployment'], difficulty:'Intermediate'},
+  {id:2, title:'AI/ML Engineer', duration:'8 months', topics:['Python','NumPy/Pandas','Machine Learning','Deep Learning','TensorFlow','Projects'], difficulty:'Advanced'},
+  {id:3, title:'Mobile App Developer', duration:'5 months', topics:['React Native','Flutter','UI/UX','APIs','State Management','Publishing'], difficulty:'Intermediate'},
+  {id:4, title:'DevOps Engineer', duration:'7 months', topics:['Linux','Docker','Kubernetes','CI/CD','AWS','Monitoring'], difficulty:'Advanced'}
 ];
 
-const roadmaps=[
-{id:1,title:'Frontend Developer Roadmap',steps:[
-{title:'HTML & CSS Basics',duration:'2 weeks',desc:'Learn structure and styling'},
-{title:'JavaScript Fundamentals',duration:'4 weeks',desc:'Master programming basics'},
-{title:'React Framework',duration:'6 weeks',desc:'Build modern UIs'},
-{title:'State Management',duration:'3 weeks',desc:'Redux, Context API'},
-{title:'Build Projects',duration:'8 weeks',desc:'Portfolio projects'}
-]},
-{id:2,title:'Backend Developer Roadmap',steps:[
-{title:'Programming Language',duration:'4 weeks',desc:'Node.js or Python'},
-{title:'Databases',duration:'4 weeks',desc:'SQL and NoSQL'},
-{title:'APIs & REST',duration:'3 weeks',desc:'Build RESTful services'},
-{title:'Authentication',duration:'2 weeks',desc:'JWT, OAuth'},
-{title:'Deployment',duration:'3 weeks',desc:'Cloud platforms'}
-]}
+const roadmaps = [
+  {id:1, title:'Frontend Developer Roadmap', steps:[
+    {title:'HTML & CSS Basics', duration:'2 weeks', desc:'Learn structure and styling'},
+    {title:'JavaScript Fundamentals', duration:'4 weeks', desc:'Master programming basics'},
+    {title:'React Framework', duration:'6 weeks', desc:'Build modern UIs'},
+    {title:'State Management', duration:'3 weeks', desc:'Redux, Context API'},
+    {title:'Build Projects', duration:'8 weeks', desc:'Portfolio projects'}
+  ]},
+  {id:2, title:'Backend Developer Roadmap', steps:[
+    {title:'Programming Language', duration:'4 weeks', desc:'Node.js or Python'},
+    {title:'Databases', duration:'4 weeks', desc:'SQL and NoSQL'},
+    {title:'APIs & REST', duration:'3 weeks', desc:'Build RESTful services'},
+    {title:'Authentication', duration:'2 weeks', desc:'JWT, OAuth'},
+    {title:'Deployment', duration:'3 weeks', desc:'Cloud platforms'}
+  ]}
 ];
 
-const playlist=[
-{title:'Code Monkey',artist:'Jonathan Coulton',duration:'3:02',genre:'Comedy'},
-{title:'Technologic',artist:'Daft Punk',duration:'4:44',genre:'Electronic'},
-{title:'Computer Love',artist:'Kraftwerk',duration:'7:15',genre:'Electronic'},
-{title:'Digital Love',artist:'Daft Punk',duration:'4:58',genre:'Electronic'},
-{title:'Mr. Roboto',artist:'Styx',duration:'5:28',genre:'Rock'},
-{title:'Harder Better Faster',artist:'Daft Punk',duration:'3:45',genre:'Electronic'},
-{title:'The Algorithm',artist:'Muse',duration:'4:05',genre:'Rock'},
-{title:'Binary',artist:'Assemblage 23',duration:'5:12',genre:'Industrial'},
-{title:'Ctrl+Alt+Delete',artist:'Freezepop',duration:'3:18',genre:'Synthpop'},
-{title:'Nerd Alert',artist:'The Aquabats',duration:'2:47',genre:'Ska'},
-{title:'Geek in the Pink',artist:'Jason Mraz',duration:'3:52',genre:'Pop'},
-{title:'White and Nerdy',artist:'Weird Al',duration:'2:50',genre:'Comedy'},
-{title:'She Blinded Me with Science',artist:'Thomas Dolby',duration:'5:12',genre:'New Wave'},
-{title:'Robot Rock',artist:'Daft Punk',duration:'4:47',genre:'Electronic'},
-{title:'Electric Feel',artist:'MGMT',duration:'3:49',genre:'Indie'},
-{title:'Intergalactic',artist:'Beastie Boys',duration:'3:51',genre:'Hip Hop'},
-{title:'Radioactive',artist:'Imagine Dragons',duration:'3:06',genre:'Rock'},
-{title:'Starlight',artist:'Muse',duration:'4:00',genre:'Rock'},
-{title:'Uprising',artist:'Muse',duration:'5:03',genre:'Rock'},
-{title:'Supermassive Black Hole',artist:'Muse',duration:'3:29',genre:'Rock'}
+const missions = [
+  {id:1, title:'Full Stack Developer Mission', desc:'Build 5 complete web applications', duration:'90 days', reward:500, milestones:[
+    {title:'Portfolio Website', desc:'Create personal portfolio', points:50},
+    {title:'Todo App', desc:'Full CRUD with backend', points:100},
+    {title:'E-commerce Platform', desc:'Shopping cart & payments', points:150},
+    {title:'Social Media Clone', desc:'Posts, comments, likes', points:100},
+    {title:'SaaS Dashboard', desc:'Analytics & charts', points:100}
+  ]},
+  {id:2, title:'AI/ML Engineer Mission', desc:'Create 3 ML projects', duration:'120 days', reward:750, milestones:[
+    {title:'Image Classifier', desc:'Build CNN model', points:150},
+    {title:'Chatbot with NLP', desc:'Natural language bot', points:250},
+    {title:'Recommendation System', desc:'ML recommendation engine', points:200},
+    {title:'Deploy ML Model', desc:'Deploy as REST API', points:150}
+  ]},
+  {id:3, title:'Mobile Developer Mission', desc:'Build 3 mobile apps', duration:'75 days', reward:450, milestones:[
+    {title:'Weather App', desc:'Real-time weather API', points:100},
+    {title:'Fitness Tracker', desc:'Track workouts & calories', points:150},
+    {title:'Social App', desc:'Chat & notifications', points:200}
+  ]}
 ];
 
-function init(){user?showApp():showLogin()}
+const hackathons = [
+  {id:1, title:'AI Innovation Challenge', desc:'Build AI solutions for real-world problems', prize:'$10,000', duration:'48 hours', participants:2847, deadline:'Feb 15, 2026'},
+  {id:2, title:'Web3 DeFi Hackathon', desc:'Create decentralized finance applications', prize:'$15,000', duration:'72 hours', participants:1923, deadline:'Mar 1, 2026'},
+  {id:3, title:'Mobile App Sprint', desc:'Build innovative mobile applications', prize:'$8,000', duration:'36 hours', participants:3156, deadline:'Feb 28, 2026'}
+];
 
-function showLogin(){
-document.getElementById('app').innerHTML=`
-<div class="login">
-<div class="login-box">
-<i class="fas fa-brain"></i>
-<h1>Tech Mastery Complete</h1>
-<p>Your Ultimate Learning Platform</p>
-<input type="text" id="nameInput" placeholder="Enter your name">
-<button onclick="login()"><i class="fas fa-rocket"></i> Start Journey</button>
-</div>
-</div>
-`;
+const playlist = [
+  {id:1, title:'Code Monkey', artist:'Jonathan Coulton', duration:'3:02', genre:'Comedy'},
+  {id:2, title:'Technologic', artist:'Daft Punk', duration:'4:44', genre:'Electronic'},
+  {id:3, title:'Computer Love', artist:'Kraftwerk', duration:'7:15', genre:'Electronic'},
+  {id:4, title:'Digital Love', artist:'Daft Punk', duration:'4:58', genre:'Electronic'},
+  {id:5, title:'Mr. Roboto', artist:'Styx', duration:'5:28', genre:'Rock'},
+  {id:6, title:'Harder Better Faster', artist:'Daft Punk', duration:'3:45', genre:'Electronic'},
+  {id:7, title:'The Algorithm', artist:'Muse', duration:'4:05', genre:'Rock'},
+  {id:8, title:'Binary', artist:'Assemblage 23', duration:'5:12', genre:'Industrial'},
+  {id:9, title:'Ctrl+Alt+Delete', artist:'Freezepop', duration:'3:18', genre:'Synthpop'},
+  {id:10, title:'Nerd Alert', artist:'The Aquabats', duration:'2:47', genre:'Ska'},
+  {id:11, title:'Geek in the Pink', artist:'Jason Mraz', duration:'3:52', genre:'Pop'},
+  {id:12, title:'White and Nerdy', artist:'Weird Al', duration:'2:50', genre:'Comedy'},
+  {id:13, title:'She Blinded Me with Science', artist:'Thomas Dolby', duration:'5:12', genre:'New Wave'},
+  {id:14, title:'Robot Rock', artist:'Daft Punk', duration:'4:47', genre:'Electronic'},
+  {id:15, title:'Electric Feel', artist:'MGMT', duration:'3:49', genre:'Indie'},
+  {id:16, title:'Intergalactic', artist:'Beastie Boys', duration:'3:51', genre:'Hip Hop'},
+  {id:17, title:'Radioactive', artist:'Imagine Dragons', duration:'3:06', genre:'Rock'},
+  {id:18, title:'Starlight', artist:'Muse', duration:'4:00', genre:'Rock'},
+  {id:19, title:'Uprising', artist:'Muse', duration:'5:03', genre:'Rock'},
+  {id:20, title:'Supermassive Black Hole', artist:'Muse', duration:'3:29', genre:'Rock'}
+];
+
+let currentSong = null;
+
+// Functions
+function init() {
+  user ? showApp() : showLogin();
 }
 
-function login(){
-const name=document.getElementById('nameInput').value.trim();
-if(name){
-user={name};
-localStorage.setItem('techUser',JSON.stringify(user));
-showApp();
-}else alert('Please enter your name!');
+function showLogin() {
+  document.getElementById('app').innerHTML = `
+    <div class="login">
+      <div class="login-box">
+        <i class="fas fa-brain"></i>
+        <h1>Tech Mastery Complete</h1>
+        <p>Your Ultimate Learning Platform</p>
+        <input type="text" id="nameInput" placeholder="Enter your name" autofocus>
+        <button onclick="login()"><i class="fas fa-rocket"></i> Start Journey</button>
+      </div>
+    </div>
+  `;
 }
 
-function showApp(){
-document.getElementById('app').innerHTML=`
-<div class="app">
-<nav class="navbar">
-<div class="nav-brand"><i class="fas fa-brain"></i> Tech Mastery</div>
-<div style="display:flex;gap:1rem;align-items:center">
-<span style="font-weight:600">${user.name}</span>
-<button onclick="logout()" style="width:auto;padding:.5rem 1rem;background:#ef4444">Logout</button>
-</div>
-</nav>
-<aside class="sidebar">
-<ul>
-<li class="active" onclick="show('dash')"><i class="fas fa-home"></i> Dashboard</li>
-<li onclick="show('books')"><i class="fas fa-book"></i> Books Library</li>
-<li onclick="show('resources')"><i class="fas fa-link"></i> Resources</li>
-<li onclick="show('learning')"><i class="fas fa-graduation-cap"></i> Learning Paths</li>
-<li onclick="show('roadmaps')"><i class="fas fa-map"></i> Roadmaps</li>
-<li onclick="show('playlist')"><i class="fas fa-music"></i> Playlist</li>
-<li onclick="show('missions')"><i class="fas fa-rocket"></i> Missions</li>
-<li onclick="show('hackathons')"><i class="fas fa-trophy"></i> Hackathons</li>
-<li onclick="show('cert')"><i class="fas fa-certificate"></i> Certificate</li>
-</ul>
-</aside>
-<main class="content" id="content">${getDash()}</main>
-</div>
-`;
+function login() {
+  const name = document.getElementById('nameInput').value.trim();
+  if (name) {
+    user = {name, joinedDate: new Date().toISOString()};
+    localStorage.setItem('techUser', JSON.stringify(user));
+    showApp();
+  } else {
+    alert('Please enter your name!');
+  }
 }
 
-function logout(){if(confirm('Logout? Progress is saved.')){user=null;location.reload()}}
-
-function show(s){
-document.querySelectorAll('.sidebar li').forEach(li=>li.classList.remove('active'));
-event.target.closest('li').classList.add('active');
-const c=document.getElementById('content');
-if(s==='dash')c.innerHTML=getDash();
-else if(s==='books')c.innerHTML=getBooks();
-else if(s==='resources')c.innerHTML=getResources();
-else if(s==='learning')c.innerHTML=getLearning();
-else if(s==='roadmaps')c.innerHTML=getRoadmaps();
-else if(s==='playlist')c.innerHTML=getPlaylist();
-else if(s==='missions')c.innerHTML=getMissions();
-else if(s==='hackathons')c.innerHTML=getHackathons();
-else if(s==='cert')c.innerHTML=getCert();
+function showApp() {
+  document.getElementById('app').innerHTML = `
+    <div class="app">
+      <nav class="navbar">
+        <div class="nav-brand"><i class="fas fa-brain"></i> Tech Mastery</div>
+        <div style="display:flex;gap:1rem;align-items:center">
+          <span>👋 ${user.name}</span>
+          <button onclick="logout()" style="width:auto;padding:.5rem 1rem;background:#ef4444">Logout</button>
+        </div>
+      </nav>
+      <aside class="sidebar">
+        <ul>
+          <li class="active" onclick="nav('dash')"><i class="fas fa-home"></i> Dashboard</li>
+          <li onclick="nav('books')"><i class="fas fa-book"></i> Books (${books.length})</li>
+          <li onclick="nav('resources')"><i class="fas fa-link"></i> Resources (${resources.length})</li>
+          <li onclick="nav('learning')"><i class="fas fa-graduation-cap"></i> Learning Paths</li>
+          <li onclick="nav('roadmaps')"><i class="fas fa-map"></i> Roadmaps</li>
+          <li onclick="nav('playlist')"><i class="fas fa-music"></i> Playlist (${playlist.length})</li>
+          <li onclick="nav('missions')"><i class="fas fa-rocket"></i> Missions (${missions.length})</li>
+          <li onclick="nav('hackathons')"><i class="fas fa-trophy"></i> Hackathons (${hackathons.length})</li>
+          <li onclick="nav('cert')"><i class="fas fa-certificate"></i> Certificate</li>
+        </ul>
+      </aside>
+      <main class="content" id="content">${getDash()}</main>
+    </div>
+  `;
 }
 
-function getDash(){
-return`
-<h1>Welcome, ${user.name}! 🚀</h1>
-<p style="font-size:1.2rem">Your complete tech learning journey</p>
-<div class="grid" style="margin-top:2rem">
-<div class="stat-card"><h3>Points</h3><div class="value">${progress.points}</div></div>
-<div class="stat-card"><h3>Challenges</h3><div class="value">${progress.challenges}</div></div>
-<div class="stat-card"><h3>Books Read</h3><div class="value">${progress.booksRead}/${books.length}</div></div>
-<div class="stat-card"><h3>Resources</h3><div class="value">${progress.resourcesUsed}/${resources.length}</div></div>
-</div>
-<div class="card" style="margin-top:2rem">
-<h2>Quick Actions</h2>
-<div class="grid" style="margin-top:1.5rem">
-<button onclick="show('books')"><i class="fas fa-book"></i> Browse Books</button>
-<button onclick="show('learning')" style="background:#8b5cf6"><i class="fas fa-graduation-cap"></i> Learning Paths</button>
-<button onclick="show('playlist')" style="background:#fbbf24;color:#0a0e1a"><i class="fas fa-music"></i> Play Music</button>
-</div>
-</div>
-`;
+function logout() {
+  if (confirm('Logout? Progress is saved.')) {
+    user = null;
+    localStorage.removeItem('techUser');
+    location.reload();
+  }
 }
 
-function getBooks(){
-return`
-<h1>📚 Books Library</h1>
-<p style="font-size:1.2rem">${books.length} essential tech books</p>
-<div class="grid" style="margin-top:2rem">
-${books.map(b=>`
-<div class="book-card">
-<div class="book-cover"><i class="fas fa-book-open"></i></div>
-<h3>${b.title}</h3>
-<p style="color:#9ca3af;margin:.5rem 0">by ${b.author}</p>
-<div style="margin:1rem 0">
-<span class="badge badge-purple">${b.category}</span>
-<span class="badge badge-warning">${b.pages} pages</span>
-<span class="badge badge-success">⭐ ${b.rating}</span>
-</div>
-<p style="font-size:.9rem;margin:1rem 0">${b.desc}</p>
-<button onclick="readBook(${b.id})" style="width:100%"><i class="fas fa-book-reader"></i> Read Now</button>
-</div>
-`).join('')}
-</div>
-`;
+function nav(section) {
+  document.querySelectorAll('.sidebar li').forEach(li => li.classList.remove('active'));
+  event.target.closest('li').classList.add('active');
+  const content = document.getElementById('content');
+  
+  if (section === 'dash') content.innerHTML = getDash();
+  else if (section === 'books') content.innerHTML = getBooks();
+  else if (section === 'resources') content.innerHTML = getResources();
+  else if (section === 'learning') content.innerHTML = getLearning();
+  else if (section === 'roadmaps') content.innerHTML = getRoadmaps();
+  else if (section === 'playlist') content.innerHTML = getPlaylist();
+  else if (section === 'missions') content.innerHTML = getMissions();
+  else if (section === 'hackathons') content.innerHTML = getHackathons();
+  else if (section === 'cert') content.innerHTML = getCert();
 }
 
-function readBook(id){
-progress.booksRead++;
-progress.points+=50;
-localStorage.setItem('techProgress',JSON.stringify(progress));
-alert('📚 Book added to reading list!\\n\\n+50 points!');
-show('books');
+function getDash() {
+  return `
+    <h1>Welcome, ${user.name}! 🚀</h1>
+    <p style="font-size:1.2rem">Your complete tech learning journey</p>
+    <div class="grid">
+      <div class="stat-card"><h3>Points</h3><div class="value">${progress.points}</div></div>
+      <div class="stat-card"><h3>Books Read</h3><div class="value">${progress.booksRead.length}/${books.length}</div></div>
+      <div class="stat-card"><h3>Resources</h3><div class="value">${progress.resourcesUsed.length}/${resources.length}</div></div>
+      <div class="stat-card"><h3>Missions</h3><div class="value">${progress.missionsActive.length}/${missions.length}</div></div>
+    </div>
+    <div class="card">
+      <h2>🎯 Quick Actions</h2>
+      <div class="grid">
+        <button onclick="nav('books')"><i class="fas fa-book"></i> Browse Books</button>
+        <button onclick="nav('learning')" style="background:#8b5cf6"><i class="fas fa-graduation-cap"></i> Learning Paths</button>
+        <button onclick="nav('playlist')" style="background:#fbbf24;color:#0a0e1a"><i class="fas fa-music"></i> Playlist</button>
+        <button onclick="nav('missions')" style="background:#ef4444"><i class="fas fa-rocket"></i> Missions</button>
+      </div>
+    </div>
+  `;
 }
 
-function getResources(){
-return`
-<h1>🔗 Tech Resources</h1>
-<p style="font-size:1.2rem">${resources.length} curated resources</p>
-${resources.map(r=>`
-<div class="resource-item">
-<h3>${r.title}</h3>
-<span class="badge badge-purple">${r.category}</span>
-<p style="margin:1rem 0">${r.desc}</p>
-<button onclick="useResource(${r.id},'${r.url}')" style="width:auto"><i class="fas fa-external-link-alt"></i> Visit Resource</button>
-</div>
-`).join('')}
-`;
+function getBooks() {
+  return `
+    <h1>📚 Books Library</h1>
+    <p style="font-size:1.2rem">${books.length} essential tech books</p>
+    <div class="grid">
+      ${books.map(b => `
+        <div class="book-card" onclick="readBook(${b.id})">
+          <div class="book-cover"><i class="fas fa-book-open"></i></div>
+          <h3>${b.title}</h3>
+          <p style="color:#9ca3af;margin:.5rem 0">${b.author}</p>
+          <div style="margin:1rem 0">
+            <span class="badge badge-purple">${b.category}</span>
+            <span class="badge badge-warning">${b.pages}p</span>
+            <span class="badge badge-success">⭐${b.rating}</span>
+          </div>
+          <p style="font-size:.9rem">${b.desc}</p>
+          ${progress.booksRead.includes(b.id) ? '<span class="badge badge-success">✓ Read</span>' : ''}
+        </div>
+      `).join('')}
+    </div>
+  `;
 }
 
-function useResource(id,url){
-progress.resourcesUsed++;
-progress.points+=10;
-localStorage.setItem('techProgress',JSON.stringify(progress));
-window.open(url,'_blank');
-alert('✅ Resource accessed!\\n\\n+10 points!');
+function readBook(id) {
+  const book = books.find(b => b.id === id);
+  if (!progress.booksRead.includes(id)) {
+    progress.booksRead.push(id);
+    progress.points += 50;
+    localStorage.setItem('techProgress', JSON.stringify(progress));
+    alert(`📚 "${book.title}" added!\n\n+50 points!\nTotal: ${progress.points}`);
+  } else {
+    alert(`📖 Already read "${book.title}"!`);
+  }
+  nav('books');
 }
 
-function getLearning(){
-return`
-<h1>🎓 Learning Paths</h1>
-<p style="font-size:1.2rem">${learningPaths.length} structured learning paths</p>
-${learningPaths.map(lp=>`
-<div class="card">
-<h2>${lp.title}</h2>
-<div style="margin:1rem 0">
-<span class="badge badge-success">${lp.duration}</span>
-<span class="badge badge-warning">${lp.difficulty}</span>
-<span class="badge badge-purple">${lp.topics.length} topics</span>
-</div>
-<h4>Topics Covered:</h4>
-<div style="margin:1rem 0">
-${lp.topics.map(t=>`<span class="badge badge-success">${t}</span>`).join('')}
-</div>
-<button onclick="startPath(${lp.id})" style="width:auto"><i class="fas fa-play"></i> Start Learning</button>
-</div>
-`).join('')}
-`;
+function getResources() {
+  return `
+    <h1>🔗 Tech Resources</h1>
+    <p style="font-size:1.2rem">${resources.length} curated resources</p>
+    ${resources.map(r => `
+      <div class="resource-item">
+        <h3>${r.title}</h3>
+        <span class="badge badge-purple">${r.category}</span>
+        <p>${r.desc}</p>
+        <button onclick="useResource(${r.id},'${r.url}')" style="width:auto"><i class="fas fa-external-link-alt"></i> Visit</button>
+        ${progress.resourcesUsed.includes(r.id) ? '<span class="badge badge-success" style="margin-left:1rem">✓ Used</span>' : ''}
+      </div>
+    `).join('')}
+  `;
 }
 
-function startPath(id){
-progress.points+=100;
-localStorage.setItem('techProgress',JSON.stringify(progress));
-alert('🎓 Learning path started!\\n\\n+100 points!');
-show('learning');
+function useResource(id, url) {
+  const resource = resources.find(r => r.id === id);
+  if (!progress.resourcesUsed.includes(id)) {
+    progress.resourcesUsed.push(id);
+    progress.points += 10;
+    localStorage.setItem('techProgress', JSON.stringify(progress));
+  }
+  window.open(url, '_blank');
+  alert(`✅ Opening "${resource.title}"!\n\n+10 points!\nTotal: ${progress.points}`);
 }
 
-function getRoadmaps(){
-return`
-<h1>🗺️ Career Roadmaps</h1>
-<p style="font-size:1.2rem">${roadmaps.length} detailed career roadmaps</p>
-${roadmaps.map(rm=>`
-<div class="card">
-<h2>${rm.title}</h2>
-<div style="margin-top:2rem">
-${rm.steps.map((step,i)=>`
-<div class="roadmap-step">
-<h4>Step ${i+1}: ${step.title}</h4>
-<span class="badge badge-warning">${step.duration}</span>
-<p style="margin-top:.5rem">${step.desc}</p>
-</div>
-`).join('')}
-</div>
-<button onclick="followRoadmap(${rm.id})" style="width:auto;margin-top:1rem"><i class="fas fa-route"></i> Follow Roadmap</button>
-</div>
-`).join('')}
-`;
+function getLearning() {
+  return `
+    <h1>🎓 Learning Paths</h1>
+    <p style="font-size:1.2rem">${learningPaths.length} structured paths</p>
+    ${learningPaths.map(p => `
+      <div class="card">
+        <h2>${p.title}</h2>
+        <div style="margin:1rem 0">
+          <span class="badge badge-success">${p.duration}</span>
+          <span class="badge badge-warning">${p.difficulty}</span>
+          <span class="badge badge-purple">${p.topics.length} topics</span>
+        </div>
+        <h4>Topics:</h4>
+        <div style="margin:1rem 0">
+          ${p.topics.map(t => `<span class="badge badge-success">${t}</span>`).join('')}
+        </div>
+        <button onclick="startPath(${p.id})" style="width:auto">
+          <i class="fas fa-play"></i> ${progress.pathsStarted.includes(p.id) ? 'Continue' : 'Start'}
+        </button>
+        ${progress.pathsStarted.includes(p.id) ? '<span class="badge badge-success" style="margin-left:1rem">✓ Active</span>' : ''}
+      </div>
+    `).join('')}
+  `;
 }
 
-function followRoadmap(id){
-progress.points+=75;
-localStorage.setItem('techProgress',JSON.stringify(progress));
-alert('🗺️ Roadmap activated!\\n\\n+75 points!');
-show('roadmaps');
+function startPath(id) {
+  const path = learningPaths.find(p => p.id === id);
+  if (!progress.pathsStarted.includes(id)) {
+    progress.pathsStarted.push(id);
+    progress.points += 100;
+    localStorage.setItem('techProgress', JSON.stringify(progress));
+    alert(`🎓 "${path.title}" started!\n\n+100 points!\nTotal: ${progress.points}`);
+  } else {
+    alert(`📚 Already learning "${path.title}"!`);
+  }
+  nav('learning');
 }
 
-function getPlaylist(){
-return`
-<h1>🎵 Coding Playlist</h1>
-<p style="font-size:1.2rem">${playlist.length} perfect coding tracks</p>
-<div class="card">
-<div style="display:flex;justify-content:space-between;margin-bottom:2rem">
-<h3>Now Playing: ${playlist[0].title}</h3>
-<button onclick="playAll()" style="width:auto"><i class="fas fa-play"></i> Play All</button>
-</div>
-${playlist.map(s=>`
-<div class="music-player">
-<div class="play-btn" onclick="play('${s.title}','${s.artist}')"><i class="fas fa-play"></i></div>
-<div style="flex:1">
-<h4>${s.title}</h4>
-<p style="margin:0;color:#9ca3af">${s.artist} • ${s.genre}</p>
-</div>
-<span class="badge badge-purple">${s.duration}</span>
-</div>
-`).join('')}
-</div>
-`;
+function getRoadmaps() {
+  return `
+    <h1>🗺️ Career Roadmaps</h1>
+    <p style="font-size:1.2rem">${roadmaps.length} detailed roadmaps</p>
+    ${roadmaps.map(r => `
+      <div class="card">
+        <h2>${r.title}</h2>
+        <div style="margin-top:2rem">
+          ${r.steps.map((s, i) => `
+            <div class="roadmap-step">
+              <h4>Step ${i+1}: ${s.title}</h4>
+              <span class="badge badge-warning">${s.duration}</span>
+              <p>${s.desc}</p>
+            </div>
+          `).join('')}
+        </div>
+        <button onclick="followRoadmap(${r.id})" style="width:auto;margin-top:1rem">
+          <i class="fas fa-route"></i> ${progress.roadmapsFollowed.includes(r.id) ? 'Continue' : 'Follow'}
+        </button>
+        ${progress.roadmapsFollowed.includes(r.id) ? '<span class="badge badge-success" style="margin-left:1rem">✓ Following</span>' : ''}
+      </div>
+    `).join('')}
+  `;
 }
 
-function play(title,artist){
-alert(`🎵 Now Playing:\\n\\n${title}\\nby ${artist}\\n\\nEnjoy your coding session! 🎧`);
+function followRoadmap(id) {
+  const roadmap = roadmaps.find(r => r.id === id);
+  if (!progress.roadmapsFollowed.includes(id)) {
+    progress.roadmapsFollowed.push(id);
+    progress.points += 75;
+    localStorage.setItem('techProgress', JSON.stringify(progress));
+    alert(`🗺️ "${roadmap.title}" activated!\n\n+75 points!\nTotal: ${progress.points}`);
+  } else {
+    alert(`📍 Already following "${roadmap.title}"!`);
+  }
+  nav('roadmaps');
 }
 
-function playAll(){
-alert(`🎵 Playing all ${playlist.length} tracks!\\n\\nPerfect music for coding! 🎧`);
+function getPlaylist() {
+  return `
+    <h1>🎵 Coding Playlist</h1>
+    <p style="font-size:1.2rem">${playlist.length} perfect coding tracks</p>
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;margin-bottom:2rem">
+        <h3>🎧 ${currentSong ? `Now: ${currentSong.title}` : 'Click to play'}</h3>
+        <button onclick="playAll()" style="width:auto"><i class="fas fa-play"></i> Play All</button>
+      </div>
+      ${playlist.map(s => `
+        <div class="music-player" onclick="playSong(${s.id})">
+          <div class="play-btn"><i class="fas fa-play"></i></div>
+          <div style="flex:1">
+            <h4>${s.title}</h4>
+            <p style="margin:0;color:#9ca3af">${s.artist} • ${s.genre}</p>
+          </div>
+          <span class="badge badge-purple">${s.duration}</span>
+        </div>
+      `).join('')}
+    </div>
+  `;
 }
 
-function getMissions(){
-return`
-<h1>🚀 Epic Missions</h1>
-<div class="card">
-<h2>Full Stack Developer Mission</h2>
-<p>Build 5 complete web applications</p>
-<span class="badge badge-warning">500 points</span>
-<button onclick="startMission()" style="width:auto;margin-top:1rem">Start Mission</button>
-</div>
-<div class="card">
-<h2>AI/ML Engineer Mission</h2>
-<p>Create 3 machine learning projects</p>
-<span class="badge badge-warning">750 points</span>
-<button onclick="startMission()" style="width:auto;margin-top:1rem">Start Mission</button>
-</div>
-`;
+function playSong(id) {
+  const song = playlist.find(s => s.id === id);
+  currentSong = song;
+  alert(`🎵 Now Playing:\n\n"${song.title}"\nby ${song.artist}\n\nGenre: ${song.genre}\nDuration: ${song.duration}\n\nEnjoy! 🎧`);
+  nav('playlist');
 }
 
-function startMission(){
-alert('🚀 Mission started! Good luck!');
+function playAll() {
+  alert(`🎵 Playing all ${playlist.length} tracks!\n\nPerfect for coding! 🎧`);
 }
 
-function getHackathons(){
-return`
-<h1>🏆 Live Hackathons</h1>
-<div class="card">
-<h2>AI Innovation Challenge</h2>
-<p>Build AI solutions for real-world problems</p>
-<div style="margin:1rem 0">
-<span class="badge badge-warning">$10,000 Prize</span>
-<span class="badge badge-purple">2847 participants</span>
-</div>
-<button onclick="enroll()" style="width:100%">Enroll Now</button>
-</div>
-`;
+function getMissions() {
+  return `
+    <h1>🚀 Epic Missions</h1>
+    <p style="font-size:1.2rem">${missions.length} challenging missions</p>
+    ${missions.map(m => `
+      <div class="mission-card">
+        <h2>${m.title}</h2>
+        <p>${m.desc}</p>
+        <div style="margin:1rem 0">
+          <span class="badge badge-success">${m.duration}</span>
+          <span class="badge badge-warning">${m.reward} pts</span>
+          <span class="badge badge-purple">${m.milestones.length} milestones</span>
+        </div>
+        <h4>Milestones:</h4>
+        ${m.milestones.map((ml, i) => `
+          <div style="background:#1e2538;padding:1rem;border-radius:8px;margin:0.5rem 0">
+            <strong>${i+1}. ${ml.title}</strong>
+            <p style="margin:0.25rem 0 0 0">${ml.desc}</p>
+            <span class="badge badge-success">${ml.points} pts</span>
+          </div>
+        `).join('')}
+        <button onclick="startMission(${m.id})" style="width:auto;margin-top:1rem">
+          <i class="fas fa-rocket"></i> ${progress.missionsActive.includes(m.id) ? 'Continue' : 'Start'}
+        </button>
+        ${progress.missionsActive.includes(m.id) ? '<span class="badge badge-success" style="margin-left:1rem">✓ Active</span>' : ''}
+      </div>
+    `).join('')}
+  `;
 }
 
-function enroll(){
-progress.points+=50;
-localStorage.setItem('techProgress',JSON.stringify(progress));
-alert('🎉 Enrolled in hackathon!\\n\\n+50 points!');
+function startMission(id) {
+  const mission = missions.find(m => m.id === id);
+  if (!progress.missionsActive.includes(id)) {
+    progress.missionsActive.push(id);
+    progress.points += 25;
+    localStorage.setItem('techProgress', JSON.stringify(progress));
+    alert(`🚀 "${mission.title}" started!\n\nReward: ${mission.reward} pts\n\n+25 points!\nTotal: ${progress.points}`);
+  } else {
+    alert(`⚡ "${mission.title}" already active!`);
+  }
+  nav('missions');
 }
 
-function getCert(){
-return`
-<h1>🎓 Certificate</h1>
-<div class="card" style="text-align:center;padding:4rem;border:3px solid #10b981">
-<i class="fas fa-certificate" style="font-size:5rem;color:#10b981;margin-bottom:2rem"></i>
-<h2 style="font-size:2.5rem">Certificate of Excellence</h2>
-<h1 style="font-size:4rem;margin:2rem 0">${user.name}</h1>
-<p style="font-size:1.4rem">Tech Mastery Complete Program</p>
-<div class="grid" style="margin:3rem 0">
-<div class="stat-card"><h3>Points</h3><div class="value" style="font-size:2.5rem">${progress.points}</div></div>
-<div class="stat-card"><h3>Books</h3><div class="value" style="font-size:2.5rem">${progress.booksRead}</div></div>
-</div>
-<p style="font-size:1.1rem">${new Date().toLocaleDateString()}</p>
-</div>
-`;
+function getHackathons() {
+  return `
+    <h1>🏆 Live Hackathons</h1>
+    <p style="font-size:1.2rem">${hackathons.length} exciting hackathons</p>
+    <div class="grid">
+      ${hackathons.map(h => `
+        <div class="hackathon-card">
+          <h2>${h.title}</h2>
+          <p>${h.desc}</p>
+          <div style="background:#fbbf24;color:#0a0e1a;padding:1rem;border-radius:8px;margin:1rem 0;font-size:1.5rem;font-weight:800;text-align:center">
+            <i class="fas fa-trophy"></i> ${h.prize}
+          </div>
+          <p><i class="fas fa-clock"></i> ${h.duration}</p>
+          <p><i class="fas fa-calendar"></i> ${h.deadline}</p>
+          <p><i class="fas fa-users"></i> ${h.participants.toLocaleString()} participants</p>
+          <button onclick="enrollHack(${h.id})" style="width:100%;margin-top:1rem">
+            <i class="fas fa-rocket"></i> ${progress.hackathonsEnrolled.includes(h.id) ? 'Enrolled' : 'Enroll Now'}
+          </button>
+          ${progress.hackathonsEnrolled.includes(h.id) ? '<span class="badge badge-success" style="margin-top:1rem;display:inline-block">✓ Enrolled</span>' : ''}
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function enrollHack(id) {
+  const hack = hackathons.find(h => h.id === id);
+  if (!progress.hackathonsEnrolled.includes(id)) {
+    progress.hackathonsEnrolled.push(id);
+    progress.points += 50;
+    localStorage.setItem('techProgress', JSON.stringify(progress));
+    alert(`🎉 Enrolled in "${hack.title}"!\n\nPrize: ${hack.prize}\nDeadline: ${hack.deadline}\n\n+50 points!\nTotal: ${progress.points}`);
+  } else {
+    alert(`✅ Already enrolled in "${hack.title}"!`);
+  }
+  nav('hackathons');
+}
+
+function getCert() {
+  return `
+    <h1>🎓 Certificate</h1>
+    <div class="card" style="text-align:center;padding:4rem 2rem;border:3px solid #10b981">
+      <i class="fas fa-certificate" style="font-size:5rem;color:#10b981;margin-bottom:2rem"></i>
+      <h2 style="font-size:2.5rem">Certificate of Excellence</h2>
+      <h1 style="font-size:4rem;margin:2rem 0;color:#10b981">${user.name}</h1>
+      <p style="font-size:1.4rem">Tech Mastery Complete Program</p>
+      <div class="grid" style="margin:3rem 0">
+        <div class="stat-card"><h3>Points</h3><div class="value" style="font-size:2.5rem">${progress.points}</div></div>
+        <div class="stat-card"><h3>Books</h3><div class="value" style="font-size:2.5rem">${progress.booksRead.length}</div></div>
+        <div class="stat-card"><h3>Missions</h3><div class="value" style="font-size:2.5rem">${progress.missionsActive.length}</div></div>
+        <div class="stat-card"><h3>Hackathons</h3><div class="value" style="font-size:2.5rem">${progress.hackathonsEnrolled.length}</div></div>
+      </div>
+      <p style="font-size:1.1rem">${new Date().toLocaleDateString()}</p>
+    </div>
+  `;
 }
 
 init();
